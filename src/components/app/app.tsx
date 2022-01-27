@@ -19,6 +19,9 @@ function App(): JSX.Element {
       <Route path="/" exact>
         <MainScreen />
       </Route>
+      <Route path="/guitars" exact>
+        <MainScreen />
+      </Route>
       <Route>
         <PageNotFound />
       </Route>

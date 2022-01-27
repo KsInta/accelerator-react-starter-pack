@@ -13,7 +13,6 @@ import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import browserHistory from './browser-history';
 import {Router} from 'react-router-dom';
-import {BrowserLocationQuery} from 'react-location-query';
 
 const api = createAPI();
 
@@ -30,10 +29,8 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store = {store}>
       <Router history={browserHistory}>
-        <BrowserLocationQuery>
-          <ToastContainer />
-          <App />
-        </BrowserLocationQuery>
+        <ToastContainer />
+        <App />
       </Router>
     </Provider>
   </React.StrictMode>,

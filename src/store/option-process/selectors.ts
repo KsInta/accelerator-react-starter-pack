@@ -6,6 +6,6 @@ const getSortType = (state: State): SortType => state[NameSpace.option].sortType
 
 const getSortDirtection = (state: State): SortDirection => state[NameSpace.option].sortDirection;
 
-const getactivePage = (state: State): number => state[NameSpace.option].activePage;
+const getActivePage = (state: State): number => state[NameSpace.option].activePage;
 
-export {getSortType, getSortDirtection, getactivePage};
+export {getSortType, getSortDirtection, getActivePage};

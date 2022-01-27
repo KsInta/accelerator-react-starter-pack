@@ -5,12 +5,14 @@ import {Guitars} from '../types/types';
 import {APIRoute} from '../const';
 import {comparePrice} from '../sorting';
 import {InformationMessages} from '../const';
+//import { database } from 'faker';
 
 const fetchGuitarsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
+    const baseUrl = APIRoute.Guitars;
     try {
       dispatch(toggleIsLoading(false));
-      const {data} = await api.get<Guitars>(APIRoute.Guitars);
+      const {data} = await api.get<Guitars>(baseUrl);
       dispatch(loadGuitars(data));
       const dataSortedByPrice = data.slice().sort(comparePrice);
       dispatch(changeMinPrice(dataSortedByPrice[0].price));

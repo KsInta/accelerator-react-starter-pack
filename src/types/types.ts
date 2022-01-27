@@ -5,7 +5,7 @@ type Guitar = {
   type: string,
   description: string,
   previewImg: string,
-  stringCount: number,
+  stringCount: string,
   rating: number,
   price: number
 }

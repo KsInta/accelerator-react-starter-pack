@@ -5,7 +5,7 @@ import {changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings, 
 
 const NEW_MIN_PRICE = 1700;
 const NEW_MAX_PRICE = 35000;
-const availableStringCount = [7, 12];
+const availableStringCount = ['7', '12'];
 
 const initialState: FilterProcess = {
   minPrice: MIN_PRICE,

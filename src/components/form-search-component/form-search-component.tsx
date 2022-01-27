@@ -38,7 +38,7 @@ function FormSearchComponent(): JSX.Element {
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
       <ul className={`form-search__select-list ${(searchList.length < 1)&&'hidden'}`}>
-        {searchList.map((item) => <li key={item.id} className="form-search__select-item" tabIndex={0}><Link to={`${AppRoute.Guitar}${item.id}`} style={{color: 'white'}}>{item.name}</Link></li>)}
+        {searchList.map((item) => <li key={item.id} className="form-search__select-item" tabIndex={0}><Link to={`${AppRoute.Guitars}${item.id}`} style={{color: 'white'}}>{item.name}</Link></li>)}
       </ul>
     </div>
   );

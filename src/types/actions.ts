@@ -8,6 +8,7 @@ const enum ActionType {
   ChangeSorting = 'option/changeSorting',
   ChangeSortingDirection = 'option/changeSortingDirection',
   LoadGuitars = 'data/loadGuitars',
+  LoadFilteredGuitars = 'data/loadFilteredGuitars',
   IsDataLoaded = 'data/isLoading',
   ChangeMinPrice = 'filter/changeMinPrice',
   ChangeMaxPrice = 'filter/changeMaxPrice',
@@ -20,6 +21,11 @@ const enum ActionType {
 
 type LoadGuitarsAction = {
   type: ActionType.LoadGuitars,
+  payload: Guitars,
+}
+
+type LoadFilteredGuitarsAction = {
+  type: ActionType.LoadFilteredGuitars,
   payload: Guitars,
 }
 
@@ -40,12 +46,12 @@ type ChangeSortingDirectionAction = {
 
 type ChangeMinPriceAction = {
   type: ActionType.ChangeMinPrice,
-  payload: number,
+  payload: number | string,
 }
 
 type ChangeMaxPriceAction = {
   type: ActionType.ChangeMaxPrice,
-  payload: number,
+  payload: number | string,
 }
 
 type ChangeGuitarTypesAction = {
@@ -55,12 +61,12 @@ type ChangeGuitarTypesAction = {
 
 type ChangeGuitarStringsAction = {
   type: ActionType.ChangeGuitarStrings,
-  payload: Array<number>,
+  payload: Array<string>,
 }
 
 type ChangeAvailableStringCountAction = {
   type: ActionType.ChangeAvailableStringCount,
-  payload: Array<number>,
+  payload: Array<string>,
 }
 
 type ChangePagesCountAction = {
@@ -77,7 +83,7 @@ type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance,
 
 type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
 
-type Actions = LoadGuitarsAction | IsDataLoadedAction | ChangeSortingAction | ChangeSortingDirectionAction | ChangeMinPriceAction | ChangeMaxPriceAction | ChangeGuitarTypesAction | ChangeGuitarStringsAction | ChangeAvailableStringCountAction | ChangePagesCountAction | ChangeActivePageAction;
+type Actions = LoadGuitarsAction | LoadFilteredGuitarsAction | IsDataLoadedAction | ChangeSortingAction | ChangeSortingDirectionAction | ChangeMinPriceAction | ChangeMaxPriceAction | ChangeGuitarTypesAction | ChangeGuitarStringsAction | ChangeAvailableStringCountAction | ChangePagesCountAction | ChangeActivePageAction;
 
 export {ActionType};
 

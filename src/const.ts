@@ -14,8 +14,8 @@ const MAX_PRICE = 0;
 
 const enum AppRoute {
   Root = '/',
-  Guitar = '/guitars/',
-  GuitarId = '/guitars/:id',
+  Guitars = '/guitars/',
+  GuitarsId = '/guitars/:id',
 }
 
 const enum APIRoute {
@@ -23,15 +23,15 @@ const enum APIRoute {
 }
 
 const enum SortType {
-  Default = 'Default',
-  Price = 'Price',
-  Rating = 'Rating'
+  Default = 'default',
+  Price = 'price',
+  Rating = 'rating'
 }
 
 const enum SortDirection {
-  Default = 'Default',
-  Ascension = 'Ascension',
-  Descension = 'Descension',
+  Default = 'default',
+  Ascension = 'asc',
+  Descension = 'desc',
 }
 
 const GuitarTypesTranslation = new Map([
@@ -41,9 +41,9 @@ const GuitarTypesTranslation = new Map([
 ]);
 
 const StringCountByTypes = {
-  acoustic: [6, 7, 12],
-  electric: [4, 6, 7],
-  ukulele: [4],
+  acoustic: ['6', '7', '12'],
+  electric: ['4', '6', '7'],
+  ukulele: ['4'],
 };
 
 const enum InformationMessages {
@@ -53,6 +53,18 @@ const enum InformationMessages {
 
 const allGuitarTypes = ['acoustic', 'electric', 'ukulele'];
 
-const availableStringCountByTypes = [4, 6, 7, 12];
+const availableStringCountByTypes = ['4', '6', '7', '12'];
 
-export {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE, PAGE_STEP_CHANGE, BACKEND_URL, REQUEST_TIMEOUT, MIN_PRICE, MAX_PRICE, AppRoute, APIRoute, SortType, SortDirection, GuitarTypesTranslation, StringCountByTypes, InformationMessages, allGuitarTypes, availableStringCountByTypes};
+const ratingInStars = [1, 2, 3, 4, 5];
+
+const getParams = {
+  page: 'page',
+  sort: '_sort',
+  direction: '_order',
+  type: 'type',
+  stringCount: 'stringCount',
+  minPrice: 'price_gte',
+  maxPrice: 'price_lte',
+};
+
+export {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE, PAGE_STEP_CHANGE, BACKEND_URL, REQUEST_TIMEOUT, MIN_PRICE, MAX_PRICE, AppRoute, APIRoute, SortType, SortDirection, GuitarTypesTranslation, StringCountByTypes, InformationMessages, allGuitarTypes, availableStringCountByTypes, ratingInStars, getParams};

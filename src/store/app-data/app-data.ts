@@ -3,7 +3,7 @@ import {AppData} from '../../types/state';
 
 const initialState: AppData = {
   guitars: [],
-  isDataLoaded: false,
+  isDataLoaded: true,
 };
 
 const appData = (state = initialState, action: Actions): AppData => {

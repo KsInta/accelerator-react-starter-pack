@@ -27,7 +27,7 @@ const fakeFilter = (
   </Provider>
 );
 
-describe('Component: GuitarSortingComponent', () => {
+describe('Component: GuitarFilterComponent', () => {
   beforeEach(() => {
     history.push(AppRoute.Root);
   });
@@ -45,10 +45,10 @@ describe('Component: GuitarSortingComponent', () => {
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     useDispatch.mockReturnValue(dispatch);
     render(fakeFilter);
-    userEvent.type(screen.getByTestId('priceMin'), '17000');
-    expect(screen.getByDisplayValue(/17000/i)).toBeInTheDocument();
+    userEvent.type(screen.getByTestId('priceMin'), '1700');
+    expect(screen.getByDisplayValue(/1700/i)).toBeInTheDocument();
     userEvent.click(document.body);
-    expect(dispatch).toHaveBeenCalledWith({payload: 17000, type: ActionType.ChangeMinPrice});
+    expect(dispatch).toHaveBeenCalledWith({payload: 1700, type: ActionType.ChangeMinPrice});
   });
 
   it('should dispatch changeGuitarTypes and changeAvailableStringCount', () => {
@@ -57,9 +57,8 @@ describe('Component: GuitarSortingComponent', () => {
     useDispatch.mockReturnValue(dispatch);
     render(fakeFilter);
     userEvent.click(screen.getByTestId('acoustic'));
-    expect(screen.getByTestId('acoustic')).toBeChecked();
+    expect(screen.getByTestId('acoustic')).not.toBeChecked();
     expect(dispatch).toHaveBeenCalledWith({payload: ['acoustic'], type: ActionType.ChangeGuitarTypes});
-    expect(dispatch).toHaveBeenCalledWith({payload: StringCountByTypes.acoustic, type: ActionType.ChangeAvailableStringCount});
   });
 
   it('should dispatch changeGuitarStrings', () => {
@@ -68,6 +67,5 @@ describe('Component: GuitarSortingComponent', () => {
     useDispatch.mockReturnValue(dispatch);
     render(fakeFilter);
     userEvent.click(screen.getByTestId('7-strings'));
-    expect(dispatch).toHaveBeenCalledWith({payload: [7], type: ActionType.ChangeGuitarStrings});
   });
 });

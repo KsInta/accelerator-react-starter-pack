@@ -1,4 +1,5 @@
-import {FIRST_PAGE, MIN_PRICE, MAX_PRICE, SortType, SortDirection, availableStringCountByTypes} from '../const';
+import {FIRST_PAGE, SortType, SortDirection, availableStringCountByTypes} from '../const';
+import {MIN_PRICE, MAX_PRICE} from './mock';
 
 const MockData = {
   guitars: [],

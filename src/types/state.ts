@@ -14,11 +14,11 @@ type OptionProcess = {
 }
 
 type FilterProcess = {
-  minPrice: number,
-  maxPrice: number,
+  minPrice: number | string,
+  maxPrice: number | string,
   guitarTypes: Array<string>,
-  guitarStrings: Array<number>,
-  availableStringCount: Array<number>,
+  guitarStrings: Array<string>,
+  availableStringCount: Array<string>,
 }
 
 type State = RootState;
