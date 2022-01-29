@@ -6,7 +6,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import * as Redux from 'react-redux';
 import userEvent from '@testing-library/user-event';
 import GuitarsFilterComponent from './guitars-filter-component';
-import {AppRoute, StringCountByTypes} from '../../const';
+import {AppRoute} from '../../const';
 import {ActionType} from '../../types/actions';
 import {MockData, MockOption, MockFilter} from '../../mock/mock-store';
 
@@ -38,17 +38,6 @@ describe('Component: GuitarFilterComponent', () => {
     expect(screen.getByText(/Тип гитар/i)).toBeInTheDocument();
     expect(screen.getByText(/Количество струн/i)).toBeInTheDocument();
     expect(screen.getAllByRole('checkbox')).toHaveLength(7);
-  });
-
-  it('should change price and dispatch changeMinPrice', () => {
-    const dispatch = jest.fn();
-    const useDispatch = jest.spyOn(Redux, 'useDispatch');
-    useDispatch.mockReturnValue(dispatch);
-    render(fakeFilter);
-    userEvent.type(screen.getByTestId('priceMin'), '1700');
-    expect(screen.getByDisplayValue(/1700/i)).toBeInTheDocument();
-    userEvent.click(document.body);
-    expect(dispatch).toHaveBeenCalledWith({payload: 1700, type: ActionType.ChangeMinPrice});
   });
 
   it('should dispatch changeGuitarTypes and changeAvailableStringCount', () => {

@@ -65,7 +65,7 @@ function GuitarsFilterComponent(): JSX.Element {
   };
 
   const handleMinPriceBlur = ({target: {value}}: ChangeEvent<HTMLInputElement>) => {
-    if (+value < minPrice) {
+    if (+value < sortedGuitarsByPrice[0].price) {
       dispatch(changeMinPrice(sortedGuitarsByPrice[0].price));
       setMinPriceInInput(sortedGuitarsByPrice[0].price);
     } else if (+value > maxPrice) {
@@ -77,7 +77,9 @@ function GuitarsFilterComponent(): JSX.Element {
 
     dispatch(changeActivePage(FIRST_PAGE));
 
-    +value > minPrice && +value < maxPrice ? urlParams.set(getParams.minPrice, value) : urlParams.delete(getParams.minPrice);
+    +value >= sortedGuitarsByPrice[0].price && +value <= sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price ? urlParams.set(getParams.minPrice, value) : urlParams.delete(getParams.minPrice);
+
+    urlParams.set(getParams.page, FIRST_PAGE.toString());
 
     browserHistory.push({
       pathname: pathname,
@@ -86,7 +88,7 @@ function GuitarsFilterComponent(): JSX.Element {
   };
 
   const handleMaxPriceBlur = ({target: {value}}: ChangeEvent<HTMLInputElement>) => {
-    if (+value > maxPrice) {
+    if (+value > sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price) {
       dispatch(changeMaxPrice(sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price));
       setMaxPriceInInput(sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price);
     } else if (+value < minPrice) {
@@ -98,7 +100,9 @@ function GuitarsFilterComponent(): JSX.Element {
 
     dispatch(changeActivePage(FIRST_PAGE));
 
-    +value > minPrice && +value < maxPrice ? urlParams.set(getParams.maxPrice, value) : urlParams.delete(getParams.maxPrice);
+    +value >= sortedGuitarsByPrice[0].price && +value <= sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price ? urlParams.set(getParams.maxPrice, value) : urlParams.delete(getParams.maxPrice);
+
+    urlParams.set(getParams.page, FIRST_PAGE.toString());
 
     browserHistory.push({
       pathname: pathname,
@@ -118,6 +122,8 @@ function GuitarsFilterComponent(): JSX.Element {
 
     selectedGuitarTypes.forEach((item) => urlParams.append(getParams.type, item));
 
+    urlParams.set(getParams.page, FIRST_PAGE.toString());
+
     browserHistory.push({
       pathname: pathname,
       search: urlParams.toString(),
@@ -136,6 +142,8 @@ function GuitarsFilterComponent(): JSX.Element {
     urlParams.delete(getParams.stringCount);
 
     selectedNumberOfString.forEach((item) => urlParams.append(getParams.stringCount, item));
+
+    urlParams.set(getParams.page, FIRST_PAGE.toString());
 
     browserHistory.push({
       pathname: pathname,

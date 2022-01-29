@@ -16,16 +16,16 @@ const store = mockStore({
   FILTER: {...MockFilter},
 });
 describe('Component: FormSearchComponent', () => {
-    it('should render FormSearchComponent and change search text', () => {
-      render(
-        <Provider store={store}>
-          <Router history={history}>
-            <FormSearchComponent />
-          </Router>
-        </Provider>);
+  it('should render FormSearchComponent and change search text', () => {
+    render(
+      <Provider store={store}>
+        <Router history={history}>
+          <FormSearchComponent />
+        </Router>
+      </Provider>);
 
-      expect(screen.getByText(/Начать поиск/i)).toBeInTheDocument();
-      userEvent.type(screen.getByTestId('search'), 'Bass');
-      expect(screen.getByDisplayValue(/Bass/i)).toBeInTheDocument();
-    });
+    expect(screen.getByText(/Начать поиск/i)).toBeInTheDocument();
+    userEvent.type(screen.getByTestId('search'), 'Bass');
+    expect(screen.getByDisplayValue(/Bass/i)).toBeInTheDocument();
   });
+});

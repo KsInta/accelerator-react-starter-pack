@@ -1,5 +1,5 @@
 import {SortType, SortDirection} from '../const';
-import {Guitar, Guitars} from './types';
+import {Guitars} from './types';
 import {RootState} from '../store/root-reducer';
 
 type AppData = {

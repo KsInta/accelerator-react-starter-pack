@@ -37,12 +37,12 @@ describe('Component: GuitarCardsListComponent', () => {
 
   it('should render correctly with guitars more then GUITAR_COUNT_ON_PAGE', () => {
     render(
-    <Provider store={storeMore}>
-      <Router history={history}>
-        <GuitarCardsListComponent />
-      </Router>
-    </Provider>);
-    
+      <Provider store={storeMore}>
+        <Router history={history}>
+          <GuitarCardsListComponent />
+        </Router>
+      </Provider>);
+
     expect(screen.getAllByText(/Рейтинг/i)).toHaveLength(GUITAR_COUNT_ON_PAGE);
     expect(screen.getAllByText(/Подробнее/i)).toHaveLength(GUITAR_COUNT_ON_PAGE);
     expect(screen.getAllByText(/Купить/i)).toHaveLength(GUITAR_COUNT_ON_PAGE);
@@ -50,16 +50,14 @@ describe('Component: GuitarCardsListComponent', () => {
 
   it('should render correctly with guitars less then GUITAR_COUNT_ON_PAGE', () => {
     render(
-    <Provider store={storeLess}>
-      <Router history={history}>
-        <GuitarCardsListComponent />
-      </Router>
-    </Provider>);
-    
+      <Provider store={storeLess}>
+        <Router history={history}>
+          <GuitarCardsListComponent />
+        </Router>
+      </Provider>);
+
     expect(screen.getAllByText(/Рейтинг/i)).toHaveLength(GUITAR_COUNT_LESS_THEN_ONE_PAGE);
     expect(screen.getAllByText(/Подробнее/i)).toHaveLength(GUITAR_COUNT_LESS_THEN_ONE_PAGE);
     expect(screen.getAllByText(/Купить/i)).toHaveLength(GUITAR_COUNT_LESS_THEN_ONE_PAGE);
   });
 });
-
-export {};

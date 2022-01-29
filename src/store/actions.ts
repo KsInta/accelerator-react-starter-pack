@@ -7,11 +7,6 @@ const loadGuitars = (guitars: Guitars): Actions => ({
   payload: guitars,
 });
 
-const loadFilteredGuitars = (guitars: Guitars): Actions => ({
-  type: ActionType.LoadFilteredGuitars,
-  payload: guitars,
-});
-
 const toggleIsLoading = (isLoading: boolean): Actions => ({
   type: ActionType.IsDataLoaded,
   payload: isLoading,
@@ -57,4 +52,4 @@ const changeActivePage = (page: number): Actions => ({
   payload: page,
 });
 
-export {loadGuitars, loadFilteredGuitars, toggleIsLoading, changeSorting, changeSortingDirection, changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings, changeAvailableStringCount, changeActivePage};
+export {loadGuitars, toggleIsLoading, changeSorting, changeSortingDirection, changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings, changeAvailableStringCount, changeActivePage};

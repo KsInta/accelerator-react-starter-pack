@@ -16,14 +16,6 @@ const store = mockStore({
   FILTER: {...MockFilter},
 });
 
-const fakeApp = (
-  <Provider store={store}>
-    <Router history={history}>
-      <MainScreen />
-    </Router>
-  </Provider>
-);
-
 describe('Component: MainScreen', () => {
   it('should render correctly', () => {
     history.push(AppRoute.Root);
@@ -32,8 +24,7 @@ describe('Component: MainScreen', () => {
         <Router history={history}>
           <MainScreen />
         </Router>
-      </Provider>
-    );
+      </Provider>);
 
     expect(screen.getByText(/Каталог гитар/i)).toBeInTheDocument();
     expect(screen.getByText(/Главная/i)).toBeInTheDocument();

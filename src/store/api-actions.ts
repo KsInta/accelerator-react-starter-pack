@@ -9,7 +9,7 @@ import {InformationMessages} from '../const';
 
 const fetchGuitarsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
-    const baseUrl = APIRoute.Guitars;
+    const baseUrl = `${APIRoute.Guitars}?_embed=comments`;
     try {
       dispatch(toggleIsLoading(false));
       const {data} = await api.get<Guitars>(baseUrl);

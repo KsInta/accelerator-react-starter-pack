@@ -6,13 +6,12 @@ import LoadingScreen from './loading-screen';
 const history = createMemoryHistory();
 
 describe('Component: Logo', () => {
-    it('should render correctly', () => {
-      render(
-        <Router history={history}>
-          <LoadingScreen />
-        </Router>);
-  
-      expect(screen.getByAltText(/Loading/i)).toBeInTheDocument();
-    });
-  });
+  it('should render correctly', () => {
+    render(
+      <Router history={history}>
+        <LoadingScreen />
+      </Router>);
 
+    expect(screen.getByAltText(/Loading/i)).toBeInTheDocument();
+  });
+});

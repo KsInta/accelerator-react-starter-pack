@@ -8,7 +8,7 @@ type GuitarComponentProps = {
 
 function GuitarCardComponent({guitar}: GuitarComponentProps): JSX.Element {
 
-  const {id, name, previewImg, rating, price} = guitar;
+  const {id, name, previewImg, rating, comments, price} = guitar;
 
   return (
     <div className="product-card"><img src={`/${previewImg}`} width="75" height="190" alt="СURT Z30 Plus Acoustics" />
@@ -16,7 +16,7 @@ function GuitarCardComponent({guitar}: GuitarComponentProps): JSX.Element {
         <div className="rate product-card__rate" aria-hidden="true">
           <span className="visually-hidden">Рейтинг:</span>
           {ratingInStars.map((star) => rating >= star ? <svg key={Math.random()} width="15" height="15" aria-hidden="true"><use xlinkHref="#icon-full-star"></use></svg> : <svg key={Math.random()} width="16" height="15" aria-hidden="true"><use xlinkHref="#icon-star"></use></svg>)}
-          <span className="rate__count">{rating}</span><span className="rate__message"></span>
+          <span className="rate__count">{comments.length}</span><span className="rate__message"></span>
         </div>
         <p className="product-card__title">{name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{price} ₽

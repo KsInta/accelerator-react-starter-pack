@@ -8,7 +8,6 @@ const enum ActionType {
   ChangeSorting = 'option/changeSorting',
   ChangeSortingDirection = 'option/changeSortingDirection',
   LoadGuitars = 'data/loadGuitars',
-  LoadFilteredGuitars = 'data/loadFilteredGuitars',
   IsDataLoaded = 'data/isLoading',
   ChangeMinPrice = 'filter/changeMinPrice',
   ChangeMaxPrice = 'filter/changeMaxPrice',
@@ -21,11 +20,6 @@ const enum ActionType {
 
 type LoadGuitarsAction = {
   type: ActionType.LoadGuitars,
-  payload: Guitars,
-}
-
-type LoadFilteredGuitarsAction = {
-  type: ActionType.LoadFilteredGuitars,
   payload: Guitars,
 }
 
@@ -83,7 +77,7 @@ type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance,
 
 type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
 
-type Actions = LoadGuitarsAction | LoadFilteredGuitarsAction | IsDataLoadedAction | ChangeSortingAction | ChangeSortingDirectionAction | ChangeMinPriceAction | ChangeMaxPriceAction | ChangeGuitarTypesAction | ChangeGuitarStringsAction | ChangeAvailableStringCountAction | ChangePagesCountAction | ChangeActivePageAction;
+type Actions = LoadGuitarsAction | IsDataLoadedAction | ChangeSortingAction | ChangeSortingDirectionAction | ChangeMinPriceAction | ChangeMaxPriceAction | ChangeGuitarTypesAction | ChangeGuitarStringsAction | ChangeAvailableStringCountAction | ChangePagesCountAction | ChangeActivePageAction;
 
 export {ActionType};
 
