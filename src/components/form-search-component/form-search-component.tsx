@@ -21,7 +21,7 @@ function FormSearchComponent(): JSX.Element {
   return (
     <div className="form-search">
       <form className="form-search__form">
-        <button className="form-search__submit" type="submit" tabIndex={-1}>
+        <button className="form-search__submit" type="submit">
           <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
             <use xlinkHref="#icon-search"></use>
           </svg><span className="visually-hidden">Начать поиск</span>
@@ -38,7 +38,7 @@ function FormSearchComponent(): JSX.Element {
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
       <ul className={`form-search__select-list ${(searchList.length < 1)&&'hidden'}`}>
-        {searchList.map((item) => <li key={item.id} className="form-search__select-item" tabIndex={0}><Link to={`${AppRoute.Guitars}${item.id}`} style={{color: 'white'}}>{item.name}</Link></li>)}
+        {searchList.map((item) => <li key={item.id} className="form-search__select-item"><Link to={`${AppRoute.Guitars}${item.id}`} style={{color: 'white'}}>{item.name}</Link></li>)}
       </ul>
     </div>
   );
