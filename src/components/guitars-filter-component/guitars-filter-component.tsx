@@ -1,19 +1,21 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {useState, useEffect} from 'react';
 import {ChangeEvent} from 'react';
-import {changeActivePage, changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings} from '../../store/actions';
-import {FIRST_PAGE, GuitarTypesTranslation, allGuitarTypes, availableStringCountByTypes, getParams, StringCountByTypes} from '../../const';
+import {changeActivePage, changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings, changeAvailableStringCount} from '../../store/actions';
+import {FIRST_PAGE, GuitarTypesTranslation, allGuitarTypes, availableStringCountByTypes, getParams} from '../../const';
 import {getDataLoaded, getGuitars} from '../../store/app-data/selectors';
-import {getMinPrice, getMaxPrice} from '../../store/filter-process/selectors';
+import {getMinPrice, getMaxPrice, getAvailableGuitarStringCount} from '../../store/filter-process/selectors';
 import browserHistory from '../../browser-history';
 import {useLocation} from 'react-router-dom';
 import {comparePrice} from '../../sorting';
+import {getAvailableStrings} from '../../utils/utils';
 
 function GuitarsFilterComponent(): JSX.Element {
   const isDataLoaded = useSelector(getDataLoaded);
   const guitars = useSelector(getGuitars);
   const minPrice = useSelector(getMinPrice);
   const maxPrice = useSelector(getMaxPrice);
+  const availableGuitarStringCount = useSelector(getAvailableGuitarStringCount);
   const dispatch = useDispatch();
 
   const {search, pathname} = useLocation();
@@ -24,35 +26,15 @@ function GuitarsFilterComponent(): JSX.Element {
 
   const guitarType = urlParams.getAll(getParams.type);
   const numberOfString = urlParams.getAll(getParams.stringCount);
-  const urlTypes = urlParams.getAll(getParams.type);
-  const urlStrings = urlParams.getAll(getParams.stringCount);
 
   const [minPriceFromUrl] = useState(minPriceURL);
   const [maxPriceFromUrl] = useState(maxPriceURL);
-  const [types] = useState(urlTypes);
-  const [strings] = useState(urlStrings);
+  const [types] = useState(guitarType);
+  const [strings] = useState(numberOfString);
   const [minPriceInInput, setMinPriceInInput] = useState(minPrice);
   const [maxPriceInInput, setMaxPriceInInput] = useState(maxPrice);
 
-  let availableStrings: Array<string> = [];
-  guitarType.slice().map((item) => {
-    switch (item) {
-      case 'acoustic':
-        return availableStrings = availableStrings.concat(StringCountByTypes.acoustic);
-      case 'electric':
-        return availableStrings = availableStrings.concat(StringCountByTypes.electric);
-      case 'ukulele':
-        return availableStrings = availableStrings.concat(StringCountByTypes.ukulele);
-      default:
-        return availableStrings;
-    }
-  });
-
-  if (guitarType.length === 0) {
-    availableStrings = availableStringCountByTypes;
-  }
-
-  availableStrings = Array.from(new Set([...availableStrings]));
+  const availableStrings = getAvailableStrings(guitarType);
 
   const sortedGuitarsByPrice = guitars.slice().sort(comparePrice);
 
@@ -77,7 +59,7 @@ function GuitarsFilterComponent(): JSX.Element {
 
     dispatch(changeActivePage(FIRST_PAGE));
 
-    +value >= sortedGuitarsByPrice[0].price && +value <= sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price ? urlParams.set(getParams.minPrice, value) : urlParams.delete(getParams.minPrice);
+    +value > sortedGuitarsByPrice[0].price && +value < sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price ? urlParams.set(getParams.minPrice, value) : urlParams.delete(getParams.minPrice);
 
     urlParams.set(getParams.page, FIRST_PAGE.toString());
 
@@ -100,7 +82,7 @@ function GuitarsFilterComponent(): JSX.Element {
 
     dispatch(changeActivePage(FIRST_PAGE));
 
-    +value >= sortedGuitarsByPrice[0].price && +value <= sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price ? urlParams.set(getParams.maxPrice, value) : urlParams.delete(getParams.maxPrice);
+    +value > sortedGuitarsByPrice[0].price && +value < sortedGuitarsByPrice[sortedGuitarsByPrice.length - 1].price ? urlParams.set(getParams.maxPrice, value) : urlParams.delete(getParams.maxPrice);
 
     urlParams.set(getParams.page, FIRST_PAGE.toString());
 
@@ -112,15 +94,24 @@ function GuitarsFilterComponent(): JSX.Element {
 
   const handleGuitarTypesChange = ({target: {name}}: ChangeEvent<HTMLInputElement>) => {
     const selectedGuitarTypes = [...guitarType];
+    const selectedNumberOfString = [...numberOfString];
     const index = selectedGuitarTypes.findIndex((type) => name === type);
     index === -1 ? selectedGuitarTypes.push(name) : selectedGuitarTypes.splice(index, 1);
 
+    const availableStringsFromType = getAvailableStrings(selectedGuitarTypes);
+
+    const filteredStrings = selectedNumberOfString.filter((string) => availableStringsFromType.indexOf(string) > -1 );
+
     dispatch(changeGuitarTypes(selectedGuitarTypes));
+    dispatch(changeAvailableStringCount(availableStringsFromType));
+    dispatch(changeGuitarStrings(filteredStrings));
     dispatch(changeActivePage(FIRST_PAGE));
 
     urlParams.delete(getParams.type);
+    urlParams.delete(getParams.stringCount);
 
     selectedGuitarTypes.forEach((item) => urlParams.append(getParams.type, item));
+    filteredStrings.forEach((item) => urlParams.append(getParams.stringCount, item));
 
     urlParams.set(getParams.page, FIRST_PAGE.toString());
 
@@ -163,6 +154,7 @@ function GuitarsFilterComponent(): JSX.Element {
 
   useEffect(() => {
     dispatch(changeGuitarTypes(types));
+    dispatch(changeAvailableStringCount(availableStrings));
   }, [types]);
 
   useEffect(() => {
@@ -220,7 +212,7 @@ function GuitarsFilterComponent(): JSX.Element {
               name={`${item}-strings`}
               value={item}
               onChange={handleGuitarStringsChange}
-              disabled={!availableStrings.includes(item)}
+              disabled={!availableGuitarStringCount.includes(item)}
               checked={numberOfString.includes(item.toString())}
               data-testid={`${item}-strings`}
             />

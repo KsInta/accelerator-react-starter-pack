@@ -73,10 +73,10 @@ function PaginationComponent(): JSX.Element {
   return (
     <div className="pagination page-content__pagination">
       <ul className="pagination__list">
-        {activePage !== pages[0] && pages.length !== 0 ? <li className="pagination__page pagination__page--prev" id="prev"><a className="link pagination__page-link" onClick={handlePrevPageChange}>Назад</a></li> : ''}
+        {activePage !== pages[0] && pages.length !== 0 ? <li className="pagination__page pagination__page--prev" id="prev"><a className="link pagination__page-link" href="#top" onClick={handlePrevPageChange}>Назад</a></li> : ''}
         {pages.map((page) =>
-          <li key={page} className={`pagination__page ${(page === activePage)&&'pagination__page--active'}`}><a className="link pagination__page-link" onClick = {()=>{handleActivePageChange(page);}}>{page}</a></li>)}
-        {activePage !== pages[pages.length - 1] && pages.length !== 0 ? <li className="pagination__page pagination__page--next" id="next" data-test={pages.length}><a className="link pagination__page-link" onClick={handleNextPageChange}>Далее</a></li> : ''}
+          <li key={page} className={`pagination__page ${(page === activePage)&&'pagination__page--active'}`}><a className="link pagination__page-link" href="#top" onClick = {()=>{handleActivePageChange(page);}}>{page}</a></li>)}
+        {activePage !== pages[pages.length - 1] && pages.length !== 0 ? <li className="pagination__page pagination__page--next" id="next" data-test={pages.length}><a className="link pagination__page-link" href="#top"onClick={handleNextPageChange}>Далее</a></li> : ''}
       </ul>
     </div>
   );

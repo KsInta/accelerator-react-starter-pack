@@ -21,7 +21,7 @@ function FormSearchComponent(): JSX.Element {
   return (
     <div className="form-search">
       <form className="form-search__form">
-        <button className="form-search__submit" type="submit">
+        <button className="form-search__submit" type="submit" tabIndex={-1}>
           <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
             <use xlinkHref="#icon-search"></use>
           </svg><span className="visually-hidden">Начать поиск</span>

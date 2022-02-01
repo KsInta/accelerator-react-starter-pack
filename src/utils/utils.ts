@@ -1,5 +1,5 @@
 import {Guitars} from '../types/types';
-import {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE} from '../const';
+import {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE, StringCountByTypes, availableStringCountByTypes} from '../const';
 
 const getFilteredGuitarsByPrice = (guitars : Guitars, minPrice: number | string, maxPrice: number | string): Guitars => guitars.filter((guitar) => guitar.price >= minPrice && guitar.price <= maxPrice);
 
@@ -44,4 +44,28 @@ const getPagesCount = (guitars: Guitars): Array<number> => {
   return pages;
 };
 
-export {getFilteredGuitarsByPrice, getFilteredGuitarsByTypes, getFilteredGuitarsByStrings, getAvailableStringCount, getFilteredGuitarsByAllFilters, getPagesCount, getFilteredGuitarsTest};
+const getAvailableStrings = (guitarType: Array<string>) => {
+  let availableStrings: Array<string> = [];
+  guitarType.slice().map((item) => {
+    switch (item) {
+      case 'acoustic':
+        return availableStrings = availableStrings.concat(StringCountByTypes.acoustic);
+      case 'electric':
+        return availableStrings = availableStrings.concat(StringCountByTypes.electric);
+      case 'ukulele':
+        return availableStrings = availableStrings.concat(StringCountByTypes.ukulele);
+      default:
+        return availableStrings;
+    }
+  });
+
+  if (guitarType.length === 0) {
+    availableStrings = availableStringCountByTypes;
+  }
+
+  availableStrings = Array.from(new Set([...availableStrings]));
+
+  return availableStrings;
+};
+
+export {getFilteredGuitarsByPrice, getFilteredGuitarsByTypes, getFilteredGuitarsByStrings, getAvailableStringCount, getFilteredGuitarsByAllFilters, getPagesCount, getFilteredGuitarsTest, getAvailableStrings};

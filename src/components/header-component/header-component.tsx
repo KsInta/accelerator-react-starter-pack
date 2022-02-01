@@ -1,6 +1,5 @@
 import FormSearchComponent from '../form-search-component/form-search-component';
 import LogoComponent from '../logo-component/logo-component';
-import {Link} from 'react-router-dom';
 
 function HeaderComponent() {
   return (
@@ -15,7 +14,6 @@ function HeaderComponent() {
             </li>
             <li><a className="link main-nav__link" href="#">О компании</a>
             </li>
-            <Link to="/guitars?name=modus-create">Modus Create</Link>
           </ul>
         </nav>
         <FormSearchComponent />
