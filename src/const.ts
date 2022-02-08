@@ -12,14 +12,17 @@ const MIN_PRICE = 0;
 
 const MAX_PRICE = 0;
 
+const REVIEWS_COUNT_STEP = 3;
+
 const enum AppRoute {
   Root = '/',
-  Guitars = '/guitars/',
+  Guitars = '/guitars',
   GuitarsId = '/guitars/:id',
 }
 
 const enum APIRoute {
   Guitars = '/guitars',
+  Comments = '/comments',
 }
 
 const enum SortType {
@@ -40,6 +43,12 @@ const GuitarTypesTranslation = new Map([
   ['ukulele', 'Укулеле'],
 ]);
 
+const GuitarTypesTranslationForProductPage = new Map([
+  ['acoustic', 'Акустическая'],
+  ['electric', 'Электрогитара'],
+  ['ukulele', 'Укулеле'],
+]);
+
 const StringCountByTypes = {
   acoustic: ['6', '7', '12'],
   electric: ['4', '6', '7'],
@@ -49,6 +58,8 @@ const StringCountByTypes = {
 const enum InformationMessages {
   DataLoadingSuccess = 'Данные успешно загружены',
   DataLoadingError = 'Ошибка загрузки данных. Попробуйте позже.',
+  NoGuitarWithSuchId = 'Гитара с таким идентификатором не найдена',
+  ReviewPostError = 'Не удалось отправить комментарий. Попробуйте позже.',
 }
 
 const allGuitarTypes = ['acoustic', 'electric', 'ukulele'];
@@ -67,4 +78,12 @@ const getParams = {
   maxPrice: 'price_lte',
 };
 
-export {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE, PAGE_STEP_CHANGE, BACKEND_URL, REQUEST_TIMEOUT, MIN_PRICE, MAX_PRICE, AppRoute, APIRoute, SortType, SortDirection, GuitarTypesTranslation, StringCountByTypes, InformationMessages, allGuitarTypes, availableStringCountByTypes, ratingInStars, getParams};
+const RatingStar = [
+  {score: '5', titleName: 'Отлично'},
+  {score: '4', titleName: 'Хорошо'},
+  {score: '3', titleName: 'Нормально'},
+  {score: '2', titleName: 'Плохо'},
+  {score: '1', titleName: 'Ужасно'},
+];
+
+export {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE, PAGE_STEP_CHANGE, BACKEND_URL, REQUEST_TIMEOUT, MIN_PRICE, MAX_PRICE, REVIEWS_COUNT_STEP, AppRoute, APIRoute, SortType, SortDirection, GuitarTypesTranslation, GuitarTypesTranslationForProductPage, StringCountByTypes, InformationMessages, allGuitarTypes, availableStringCountByTypes, ratingInStars, getParams, RatingStar};

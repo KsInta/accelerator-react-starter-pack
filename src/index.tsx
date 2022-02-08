@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
-import thunk from 'redux-thunk';
-import {composeWithDevTools} from 'redux-devtools-extension';
 import {createAPI} from './services/api';
 import {rootReducer} from './store/root-reducer';
-import {ThunkAppDispatch} from './types/actions';
+//import {ThunkAppDispatch} from './types/actions';
 import {fetchGuitarsAction} from './store/api-actions';
 import App from './components/app/app';
 import {ToastContainer} from 'react-toastify';
@@ -16,14 +14,17 @@ import {Router} from 'react-router-dom';
 
 const api = createAPI();
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(
-    applyMiddleware(thunk.withExtraArgument(api)),
-  ),
-);
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }),
+});
 
-(store.dispatch as ThunkAppDispatch)(fetchGuitarsAction());
+(store.dispatch)(fetchGuitarsAction());
 
 ReactDOM.render(
   <React.StrictMode>

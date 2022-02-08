@@ -45,6 +45,7 @@ describe('Component: GuitarSortingComponent', () => {
     const useDispatch = jest.spyOn(Redux, 'useDispatch');
     useDispatch.mockReturnValue(dispatch);
     render(fakeSorting);
+
     userEvent.click(screen.getByTestId('price'));
     expect(dispatch).toHaveBeenCalledWith({payload: SortType.Price, type: ActionType.ChangeSorting});
     userEvent.click(screen.getByTestId('rating'));

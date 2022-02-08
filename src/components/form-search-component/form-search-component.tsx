@@ -8,6 +8,7 @@ import {getGuitars} from '../../store/app-data/selectors';
 function FormSearchComponent(): JSX.Element {
   const guitars = useSelector(getGuitars);
   const [searchString, setSearchString] = useState<string>('');
+  const [focusOnSearch, setFocusOnSearch] = useState<boolean>(false);
   let searchList: Guitars = [];
 
   const handleChange = ({target: {value}}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -16,6 +17,11 @@ function FormSearchComponent(): JSX.Element {
 
   if (searchString.length > 0) {
     searchList = guitars.filter((guitar) => guitar.name.toLowerCase().includes(searchString.toLowerCase()));
+  }
+
+  let searchHidden = '';
+  if ((searchList.length < 1) || !focusOnSearch) {
+    searchHidden = 'hidden';
   }
 
   return (
@@ -33,12 +39,14 @@ function FormSearchComponent(): JSX.Element {
           autoComplete="off"
           placeholder="что вы ищите?"
           onChange={handleChange}
+          onFocus={() => setFocusOnSearch(true)}
+          value={searchString}
           data-testid="search"
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
-      <ul className={`form-search__select-list ${(searchList.length < 1)&&'hidden'}`}>
-        {searchList.map((item) => <li key={item.id} className="form-search__select-item"><Link to={`${AppRoute.Guitars}${item.id}`} style={{color: 'white'}}>{item.name}</Link></li>)}
+      <ul className={`form-search__select-list ${searchHidden}`}>
+        {searchList.map((item) => <li key={item.id} className="form-search__select-item"><Link to={`${AppRoute.Guitars}/${item.id}`} onClick={() => {setFocusOnSearch(false);setSearchString('');}} style={{color: 'white'}}>{item.name}</Link></li>)}
       </ul>
     </div>
   );

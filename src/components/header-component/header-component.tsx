@@ -1,5 +1,7 @@
+import {Link} from 'react-router-dom';
 import FormSearchComponent from '../form-search-component/form-search-component';
 import LogoComponent from '../logo-component/logo-component';
+import {AppRoute} from '../../const';
 
 function HeaderComponent() {
   return (
@@ -8,7 +10,7 @@ function HeaderComponent() {
         <LogoComponent />
         <nav className="main-nav">
           <ul className="main-nav__list">
-            <li><a className="link main-nav__link link--current" href="#">Каталог</a>
+            <li><Link className="link main-nav__link" to={AppRoute.Guitars}>Каталог</Link>
             </li>
             <li><a className="link main-nav__link" href="#">Где купить?</a>
             </li>

@@ -14,14 +14,25 @@ type Guitar = {
 type Comment = {
   id: string,
   userName: string,
-  advantages: string,
-  disadvantages: string,
+  advantage: string,
+  disadvantage: string,
   comment: string,
   rating: number,
   createAt: string,
   guitarId: number,
 }
 
+type PostComment = {
+  userName: string,
+  advantage: string,
+  disadvantage: string,
+  comment: string,
+  rating: number,
+  guitarId: number,
+};
+
 type Guitars = Guitar[];
 
-export type {Guitar, Guitars, Comment};
+type Comments = Comment[];
+
+export type {Guitar, Guitars, Comment, Comments, PostComment};

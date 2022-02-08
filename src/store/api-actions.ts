@@ -1,11 +1,11 @@
 import {ThunkActionResult} from '../types/actions';
 import {toast} from 'react-toastify';
-import {loadGuitars, toggleIsLoading, changeMinPrice, changeMaxPrice} from './actions';
-import {Guitars} from '../types/types';
+import {loadGuitars, loadGuitar, loadGuitarComments, toggleIsLoading, toggleIsPosting, changeMinPrice, changeMaxPrice} from './actions';
+import {Guitars, PostComment} from '../types/types';
 import {APIRoute} from '../const';
 import {comparePrice} from '../sorting';
 import {InformationMessages} from '../const';
-//import { database } from 'faker';
+import {getActualReviews} from '../utils/utils';
 
 const fetchGuitarsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -23,4 +23,36 @@ const fetchGuitarsAction = (): ThunkActionResult =>
     }
   };
 
-export {fetchGuitarsAction};
+const fetchOfferByIdAction = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    try {
+      const {data} = await api.get(`${APIRoute.Guitars}/${id}`);
+      dispatch(loadGuitar(data));
+    } catch {
+      toast.error(InformationMessages.NoGuitarWithSuchId);
+    }
+  };
+
+const fetchCommentsAction = (id: string): ThunkActionResult =>
+  async (dispatch, _getState, api) => {
+    try {
+      const {data} = await api.get(`${APIRoute.Guitars}/${id}${APIRoute.Comments}`);
+      dispatch(loadGuitarComments(getActualReviews(data)));
+    } catch {
+      dispatch(loadGuitarComments([]));
+    }
+  };
+
+const postCommentAction = (id: number, comment: PostComment): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      await api.post(APIRoute.Comments, comment);
+      const {data} = await api.get(`${APIRoute.Guitars}/${id}${APIRoute.Comments}`);
+      dispatch(loadGuitarComments(getActualReviews(data)));
+      dispatch(toggleIsPosting(true));
+    } catch {
+      toast.error(InformationMessages.ReviewPostError);
+    }
+  };
+
+export {fetchGuitarsAction, fetchOfferByIdAction, fetchCommentsAction, postCommentAction};

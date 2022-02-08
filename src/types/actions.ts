@@ -1,14 +1,18 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
-import {Guitars} from './types';
+import {Guitar, Guitars, Comments} from './types';
 import {SortType, SortDirection} from '../const';
 
 const enum ActionType {
   ChangeSorting = 'option/changeSorting',
   ChangeSortingDirection = 'option/changeSortingDirection',
   LoadGuitars = 'data/loadGuitars',
+  LoadGuitar = 'data/loadGuitar',
+  LoadGuitarComments = 'data/loadGuitarComments',
   IsDataLoaded = 'data/isLoading',
+  IsGuitarLoaded = 'data/isGuitarLoaded',
+  IsCommentPosted = 'data/isCommentPosting',
   ChangeMinPrice = 'filter/changeMinPrice',
   ChangeMaxPrice = 'filter/changeMaxPrice',
   ChangeGuitarTypes = 'filter/changeGuitarTypes',
@@ -23,8 +27,28 @@ type LoadGuitarsAction = {
   payload: Guitars,
 }
 
+type LoadGuitarAction = {
+  type: ActionType.LoadGuitar,
+  payload: Guitar,
+}
+
+type LoadGuitarCommentsAction = {
+  type: ActionType.LoadGuitarComments,
+  payload: Comments,
+}
+
 type IsDataLoadedAction = {
   type: ActionType.IsDataLoaded,
+  payload: boolean,
+}
+
+type IsGuitarLoadedAction = {
+  type: ActionType.IsGuitarLoaded,
+  payload: boolean,
+}
+
+type IsCommentPostedAction = {
+  type: ActionType.IsCommentPosted,
   payload: boolean,
 }
 
@@ -77,7 +101,7 @@ type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance,
 
 type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
 
-type Actions = LoadGuitarsAction | IsDataLoadedAction | ChangeSortingAction | ChangeSortingDirectionAction | ChangeMinPriceAction | ChangeMaxPriceAction | ChangeGuitarTypesAction | ChangeGuitarStringsAction | ChangeAvailableStringCountAction | ChangePagesCountAction | ChangeActivePageAction;
+type Actions = LoadGuitarsAction | LoadGuitarAction | LoadGuitarCommentsAction | IsDataLoadedAction | IsGuitarLoadedAction | IsCommentPostedAction | ChangeSortingAction | ChangeSortingDirectionAction | ChangeMinPriceAction | ChangeMaxPriceAction | ChangeGuitarTypesAction | ChangeGuitarStringsAction | ChangeAvailableStringCountAction | ChangePagesCountAction | ChangeActivePageAction;
 
 export {ActionType};
 

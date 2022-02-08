@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
-import {AppRoute, ratingInStars} from '../../const';
+import GuitarRating from '../guitar-rating/guitar-rating';
+import {AppRoute} from '../../const';
 import {Guitar} from '../../types/types';
 
 type GuitarComponentProps = {
@@ -14,9 +15,8 @@ function GuitarCardComponent({guitar}: GuitarComponentProps): JSX.Element {
     <div className="product-card"><img src={`/${previewImg}`} width="75" height="190" alt="СURT Z30 Plus Acoustics" />
       <div className="product-card__info">
         <div className="rate product-card__rate" aria-hidden="true">
-          <span className="visually-hidden">Рейтинг:</span>
-          {ratingInStars.map((star) => rating >= star ? <svg key={Math.random()} width="15" height="15" aria-hidden="true"><use xlinkHref="#icon-full-star"></use></svg> : <svg key={Math.random()} width="16" height="15" aria-hidden="true"><use xlinkHref="#icon-star"></use></svg>)}
-          <span className="rate__count">{comments.length}</span><span className="rate__message"></span>
+          <GuitarRating rating={rating} />
+          <span className="rate__count">{comments.length}</span>
         </div>
         <p className="product-card__title">{name}</p>
         <p className="product-card__price"><span className="visually-hidden">Цена:</span>{price} ₽

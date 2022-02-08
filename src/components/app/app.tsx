@@ -3,7 +3,9 @@ import {Switch, Route} from 'react-router-dom';
 import LoadingScreen from '../loading-screen/loading-screen';
 import MainScreen from '../main-screen/main-screen';
 import PageNotFound from '../page-not-found/page-not-found';
+import ProductPage from '../product-page/product-page';
 import {getDataLoaded} from '../../store/app-data/selectors';
+import {AppRoute} from '../../const';
 
 function App(): JSX.Element {
   const isDataLoaded = useSelector(getDataLoaded);
@@ -16,11 +18,14 @@ function App(): JSX.Element {
 
   return (
     <Switch>
-      <Route path="/" exact>
+      <Route path={AppRoute.Root} exact>
         <MainScreen />
       </Route>
-      <Route path="/guitars" exact>
+      <Route path={AppRoute.Guitars} exact>
         <MainScreen />
+      </Route>
+      <Route path={AppRoute.GuitarsId} exact>
+        <ProductPage />
       </Route>
       <Route>
         <PageNotFound />

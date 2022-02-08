@@ -1,4 +1,4 @@
-import {Guitars} from '../types/types';
+import {Guitars, Comments} from '../types/types';
 import {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE, StringCountByTypes, availableStringCountByTypes} from '../const';
 
 const getFilteredGuitarsByPrice = (guitars : Guitars, minPrice: number | string, maxPrice: number | string): Guitars => guitars.filter((guitar) => guitar.price >= minPrice && guitar.price <= maxPrice);
@@ -68,4 +68,6 @@ const getAvailableStrings = (guitarType: Array<string>) => {
   return availableStrings;
 };
 
-export {getFilteredGuitarsByPrice, getFilteredGuitarsByTypes, getFilteredGuitarsByStrings, getAvailableStringCount, getFilteredGuitarsByAllFilters, getPagesCount, getFilteredGuitarsTest, getAvailableStrings};
+const getActualReviews = (reviews: Comments): Comments => reviews.sort((reviewA, reviewB) => Date.parse(reviewB.createAt) - Date.parse(reviewA.createAt));
+
+export {getFilteredGuitarsByPrice, getFilteredGuitarsByTypes, getFilteredGuitarsByStrings, getAvailableStringCount, getFilteredGuitarsByAllFilters, getPagesCount, getFilteredGuitarsTest, getAvailableStrings, getActualReviews};
