@@ -59,6 +59,7 @@ const enum InformationMessages {
   DataLoadingSuccess = 'Данные успешно загружены',
   DataLoadingError = 'Ошибка загрузки данных. Попробуйте позже.',
   NoGuitarWithSuchId = 'Гитара с таким идентификатором не найдена',
+  CommentsLoadingError = 'Не удалось загрузить комментарии. Попробуйте позже',
   ReviewPostError = 'Не удалось отправить комментарий. Попробуйте позже.',
 }
 

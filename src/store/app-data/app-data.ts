@@ -5,7 +5,6 @@ import {Guitar} from '../../types/types';
 const initialState: AppData = {
   guitars: [],
   guitar: {} as Guitar,
-  guitarComments: [],
   isDataLoaded: false,
   isGuitarLoaded: false,
   isCommentPosted: false,
@@ -17,8 +16,6 @@ const appData = (state = initialState, action: Actions): AppData => {
       return {...state, guitars: action.payload};
     case ActionType.LoadGuitar:
       return {...state, guitar: action.payload};
-    case ActionType.LoadGuitarComments:
-      return {...state, guitarComments: action.payload};
     case ActionType.IsDataLoaded:
       return {...state, isDataLoaded: action.payload};
     case ActionType.IsGuitarLoaded:

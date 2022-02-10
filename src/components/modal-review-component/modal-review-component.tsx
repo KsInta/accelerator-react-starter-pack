@@ -23,6 +23,9 @@ function ModalReviewComponent({onModalReviewCloseClick}: ModalReviewComponentPro
     rating: '',
   });
 
+  const isUserNameNotFilled = formState.userName.length < 3;
+  const isRatingNotChoosen = formState.rating === '';
+
   const postedComment = {
     userName: formState.userName,
     advantage: formState.advantage,
@@ -70,7 +73,7 @@ function ModalReviewComponent({onModalReviewCloseClick}: ModalReviewComponentPro
                   <div className="form-review__name-wrapper">
                     <label className="form-review__label form-review__label--required" htmlFor="userName">Ваше Имя</label>
                     <input className="form-review__input form-review__input--name" id="userName" name="userName" data-testid="userName" onChange={handleChange} type="text" autoComplete="off" />
-                    {formState.userName.length < 3 ? <span className="form-review__warning">Заполните поле</span> : ''}
+                    {isUserNameNotFilled && <span className="form-review__warning">Заполните поле</span>}
                   </div>
                   <div><span className="form-review__label form-review__label--required">Ваша Оценка</span>
                     <div className="rate rate--reverse">
@@ -89,7 +92,7 @@ function ModalReviewComponent({onModalReviewCloseClick}: ModalReviewComponentPro
                           </label>
                         </React.Fragment>
                       ))}
-                      {formState.rating === '' ? <span className="rate__message">Поставьте оценку</span> : ''}
+                      {isRatingNotChoosen &&  <span className="rate__message">Поставьте оценку</span>}
                     </div>
                   </div>
                 </div>

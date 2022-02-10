@@ -4,9 +4,9 @@ import MockAdapter from 'axios-mock-adapter';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {createAPI} from '../services/api';
 import {APIRoute} from '../const';
-import {fetchGuitarsAction, fetchOfferByIdAction, fetchCommentsAction} from './api-actions';
+import {fetchGuitarsAction, fetchOfferByIdAction} from './api-actions';
 import {State} from '../types/state';
-import {toggleIsLoading, loadGuitars, loadGuitar, loadGuitarComments, changeMinPrice, changeMaxPrice} from './actions';
+import {toggleIsLoading, loadGuitars, loadGuitar, changeMinPrice, changeMaxPrice} from './actions';
 import {GenerateFakeComment, GenerateFakeGuitar, GenerateFakeCommentToPOST} from '../mock/mock';
 import {comparePrice} from '../sorting';
 import {datatype, lorem} from 'faker';
@@ -61,20 +61,8 @@ describe('Async actions', () => {
     ]);
   });
 
-  it('should dispatch loadGuitarComments when GET /', async () => {
-    mockAPI
-      .onGet(`${APIRoute.Guitars}/${fakeComments[0].guitarId}${APIRoute.Comments}`)
-      .reply(200, fakeComments);
-
-    const store = mockStore();
-    await store.dispatch(fetchCommentsAction(fakeComments[0].guitarId.toString()));
-
-    expect(store.getActions()).toEqual([
-      loadGuitarComments(fakeComments),
-    ]);
-  });
-
   it('should dispatch loadGuitarComments when comment POST /', async () => {
+    const fakeGuitar = GenerateFakeGuitar();
     const fakeComment = GenerateFakeCommentToPOST();
     const fakeCommentFromServer = {id: datatype.number({min: 1, max: 500}).toString(), createAt: lorem.paragraph(), ...fakeComment};
     const fakeCommentsAfterPOST = fakeComments.slice();
@@ -87,10 +75,10 @@ describe('Async actions', () => {
       .reply(200, fakeCommentsAfterPOST);
 
     const store = mockStore();
-    await store.dispatch(fetchCommentsAction(fakeCommentsAfterPOST[0].guitarId.toString()));
+    await store.dispatch(fetchOfferByIdAction(fakeGuitar.id.toString()));
 
     expect(store.getActions()).toEqual([
-      loadGuitarComments(fakeCommentsAfterPOST),
+      loadGuitar(fakeGuitar),
     ]);
   });
 });

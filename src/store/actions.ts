@@ -1,5 +1,5 @@
 import {ActionType, Actions} from '../types/actions';
-import {Guitar, Guitars, Comments} from '../types/types';
+import {Guitar, Guitars} from '../types/types';
 import {SortType, SortDirection} from '../const';
 
 const loadGuitars = (guitars: Guitars): Actions => ({
@@ -10,11 +10,6 @@ const loadGuitars = (guitars: Guitars): Actions => ({
 const loadGuitar = (guitar: Guitar): Actions => ({
   type: ActionType.LoadGuitar,
   payload: guitar,
-});
-
-const loadGuitarComments = (comments: Comments): Actions => ({
-  type: ActionType.LoadGuitarComments,
-  payload: comments,
 });
 
 const toggleIsLoading = (isLoading: boolean): Actions => ({
@@ -72,4 +67,4 @@ const changeActivePage = (page: number): Actions => ({
   payload: page,
 });
 
-export {loadGuitars, loadGuitar, loadGuitarComments, toggleIsLoading, toggleIsGuitarLoading, toggleIsPosting, changeSorting, changeSortingDirection, changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings, changeAvailableStringCount, changeActivePage};
+export {loadGuitars, loadGuitar, toggleIsLoading, toggleIsGuitarLoading, toggleIsPosting, changeSorting, changeSortingDirection, changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings, changeAvailableStringCount, changeActivePage};

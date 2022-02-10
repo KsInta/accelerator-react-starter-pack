@@ -1,6 +1,6 @@
 import {ThunkActionResult} from '../types/actions';
 import {toast} from 'react-toastify';
-import {loadGuitars, loadGuitar, loadGuitarComments, toggleIsLoading, toggleIsPosting, changeMinPrice, changeMaxPrice} from './actions';
+import {loadGuitars, loadGuitar, toggleIsLoading, toggleIsPosting, changeMinPrice, changeMaxPrice} from './actions';
 import {Guitars, PostComment} from '../types/types';
 import {APIRoute} from '../const';
 import {comparePrice} from '../sorting';
@@ -26,20 +26,11 @@ const fetchGuitarsAction = (): ThunkActionResult =>
 const fetchOfferByIdAction = (id: string): ThunkActionResult =>
   async (dispatch, _getState, api) => {
     try {
-      const {data} = await api.get(`${APIRoute.Guitars}/${id}`);
+      const {data} = await api.get(`${APIRoute.Guitars}/${id}?_embed=comments`);
+      getActualReviews(data.comments);
       dispatch(loadGuitar(data));
     } catch {
       toast.error(InformationMessages.NoGuitarWithSuchId);
-    }
-  };
-
-const fetchCommentsAction = (id: string): ThunkActionResult =>
-  async (dispatch, _getState, api) => {
-    try {
-      const {data} = await api.get(`${APIRoute.Guitars}/${id}${APIRoute.Comments}`);
-      dispatch(loadGuitarComments(getActualReviews(data)));
-    } catch {
-      dispatch(loadGuitarComments([]));
     }
   };
 
@@ -47,12 +38,13 @@ const postCommentAction = (id: number, comment: PostComment): ThunkActionResult 
   async (dispatch, _getState, api): Promise<void> => {
     try {
       await api.post(APIRoute.Comments, comment);
-      const {data} = await api.get(`${APIRoute.Guitars}/${id}${APIRoute.Comments}`);
-      dispatch(loadGuitarComments(getActualReviews(data)));
+      const {data} = await api.get(`${APIRoute.Guitars}/${id}?_embed=comments`);
+      getActualReviews(data.comments);
+      dispatch(loadGuitar(data));
       dispatch(toggleIsPosting(true));
     } catch {
       toast.error(InformationMessages.ReviewPostError);
     }
   };
 
-export {fetchGuitarsAction, fetchOfferByIdAction, fetchCommentsAction, postCommentAction};
+export {fetchGuitarsAction, fetchOfferByIdAction, postCommentAction};

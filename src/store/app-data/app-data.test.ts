@@ -1,16 +1,14 @@
 import {AppData} from '../../types/state';
 import {appData} from './app-data';
-import {loadGuitar, loadGuitars, loadGuitarComments, toggleIsLoading, toggleIsGuitarLoading, toggleIsPosting} from '../actions';
-import {GenerateFakeComment, GenerateFakeGuitar} from '../../mock/mock';
+import {loadGuitar, loadGuitars, toggleIsLoading, toggleIsGuitarLoading, toggleIsPosting} from '../actions';
+import {GenerateFakeGuitar} from '../../mock/mock';
 import {Guitar} from '../../types/types';
 
 const GUITAR_COUNT = 25;
-const COMMENTS_COUNT = 5;
 
 const initialState: AppData = {
   guitars: [],
   guitar: {} as Guitar,
-  guitarComments: [],
   isDataLoaded: false,
   isGuitarLoaded: false,
   isCommentPosted: false,
@@ -19,8 +17,6 @@ const initialState: AppData = {
 const fakeGuitar = GenerateFakeGuitar();
 
 const fakeGuitars = new Array(GUITAR_COUNT).fill(null).map((guitar, index) => guitar = {...GenerateFakeGuitar(), id: index});
-
-const fakeComments = new Array(COMMENTS_COUNT).fill(null).map((comment) => comment = {...GenerateFakeComment()});
 
 describe('Reducer: appData', () => {
   const state = initialState;
@@ -31,10 +27,6 @@ describe('Reducer: appData', () => {
   it('should update guitar by loadGuitar', () => {
     expect(appData(state, loadGuitar(fakeGuitar)))
       .toEqual({ ...state, guitar: fakeGuitar});
-  });
-  it('should update comments by loadGuitarComments', () => {
-    expect(appData(state, loadGuitarComments(fakeComments)))
-      .toEqual({ ...state, guitarComments: fakeComments});
   });
   it('should change isDataLoaded by toggleIsLoading', () => {
     const isDataLoaded = true;

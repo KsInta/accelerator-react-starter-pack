@@ -12,14 +12,13 @@ import ProductTabs from '../product-tabs/product-tabs';
 import GuitarRating from '../guitar-rating/guitar-rating';
 import ReviewsListComponent from '../reviews-list-component/reviews-list-component';
 import {toggleIsGuitarLoading, toggleIsPosting} from '../../store/actions';
-import {fetchOfferByIdAction, fetchCommentsAction} from '../../store/api-actions';
-import {getGuitar, getGuitarLoaded, getGuitarComments, getCommentPosted} from '../../store/app-data/selectors';
+import {fetchOfferByIdAction} from '../../store/api-actions';
+import {getGuitar, getGuitarLoaded, getCommentPosted} from '../../store/app-data/selectors';
 import {AppRoute, GuitarTypesTranslationForProductPage} from '../../const';
 
 function ProductPage(): JSX.Element {
   const guitar = useSelector(getGuitar);
   const isGuitarLoaded = useSelector(getGuitarLoaded);
-  const guitarComments = useSelector(getGuitarComments);
   const isCommentPosted = useSelector(getCommentPosted);
   const params: {id: string} = useParams();
   const dispatch = useDispatch();
@@ -43,7 +42,6 @@ function ProductPage(): JSX.Element {
   useEffect(() => {
     Promise.all([
       dispatch(fetchOfferByIdAction(params.id)),
-      dispatch(fetchCommentsAction(params.id)),
     ])
       .then(() => {
         dispatch(toggleIsGuitarLoading(true));
@@ -87,7 +85,7 @@ function ProductPage(): JSX.Element {
               <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>
               <div className="rate product-container__rating" aria-hidden="true">
                 <GuitarRating rating={guitar.rating} />
-                <span className="rate__count" style={{marginLeft: '5px', fontSize: '12px', lineHeight: '15px'}}>{guitarComments.length}</span>
+                <span className="rate__count" style={{marginLeft: '5px', fontSize: '12px', lineHeight: '15px'}}>{guitar.comments.length}</span>
               </div>
               <ProductTabs vendorCode={guitar.vendorCode} type={GuitarTypesTranslationForProductPage.get(guitar.type)} stringCount={guitar.stringCount} description={guitar.description}/>
             </div>

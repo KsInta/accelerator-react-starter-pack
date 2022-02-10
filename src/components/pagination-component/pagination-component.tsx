@@ -30,6 +30,9 @@ function PaginationComponent(): JSX.Element {
 
   const pages = getPagesCount(filteredGuitars);
 
+  const isActivePageIsNotFirst = activePage !== pages[0] && pages.length !== 0;
+  const isActivePageIsNotLast = activePage !== pages[pages.length - 1] && pages.length !== 0;
+
   const handlePrevPageChange = () => {
     dispatch(changeActivePage(activePage - PAGE_STEP_CHANGE));
     urlParams.set(getParams.page, (activePage - PAGE_STEP_CHANGE).toString());
@@ -73,10 +76,10 @@ function PaginationComponent(): JSX.Element {
   return (
     <div className="pagination page-content__pagination">
       <ul className="pagination__list">
-        {activePage !== pages[0] && pages.length !== 0 ? <li className="pagination__page pagination__page--prev" id="prev"><a className="link pagination__page-link" href="#top" onClick={handlePrevPageChange}>Назад</a></li> : ''}
+        {isActivePageIsNotFirst && <li className="pagination__page pagination__page--prev" id="prev"><a className="link pagination__page-link" href="#top" onClick={handlePrevPageChange}>Назад</a></li>}
         {pages.map((page) =>
           <li key={page} className={`pagination__page ${(page === activePage)&&'pagination__page--active'}`}><a className="link pagination__page-link" href="#top" onClick = {()=>{handleActivePageChange(page);}}>{page}</a></li>)}
-        {activePage !== pages[pages.length - 1] && pages.length !== 0 ? <li className="pagination__page pagination__page--next" id="next" data-test={pages.length}><a className="link pagination__page-link" href="#top"onClick={handleNextPageChange}>Далее</a></li> : ''}
+        {isActivePageIsNotLast && <li className="pagination__page pagination__page--next" id="next" data-test={pages.length}><a className="link pagination__page-link" href="#top"onClick={handleNextPageChange}>Далее</a></li>}
       </ul>
     </div>
   );

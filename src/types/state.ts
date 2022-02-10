@@ -1,11 +1,10 @@
 import {SortType, SortDirection} from '../const';
-import {Comments, Guitar, Guitars} from './types';
+import {Guitar, Guitars} from './types';
 import {RootState} from '../store/root-reducer';
 
 type AppData = {
   guitars: Guitars,
   guitar: Guitar,
-  guitarComments: Comments,
   isDataLoaded: boolean,
   isGuitarLoaded: boolean,
   isCommentPosted: boolean,

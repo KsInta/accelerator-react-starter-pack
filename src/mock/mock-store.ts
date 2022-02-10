@@ -3,7 +3,10 @@ import {MIN_PRICE, MAX_PRICE} from './mock';
 
 const MockData = {
   guitars: [],
-  isDataLoaded: true,
+  guitar: {},
+  isDataLoaded: false,
+  isGuitarLoaded: false,
+  isCommentPosted: false,
 };
 
 const MockFilter = {
