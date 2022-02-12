@@ -25,7 +25,12 @@ function FormSearchComponent(): JSX.Element {
   }
 
   return (
-    <div className="form-search">
+    <div className="form-search" onBlur={(e) => {
+      if (!e.currentTarget.contains(e.relatedTarget)) {
+        setFocusOnSearch(false);
+      }
+    }}
+    >
       <form className="form-search__form">
         <button className="form-search__submit" type="submit">
           <svg className="form-search__icon" width="14" height="15" aria-hidden="true">

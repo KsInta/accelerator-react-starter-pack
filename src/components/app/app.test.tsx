@@ -25,7 +25,7 @@ const fakeApp = (
 );
 
 describe('Application Routing', () => {
-  it('should render "WelcomeScreen" when user navigate to "/"', () => {
+  it('should render "CatalogPage" when user navigate to "/"', () => {
     history.push(AppRoute.Root);
     render(fakeApp);
 

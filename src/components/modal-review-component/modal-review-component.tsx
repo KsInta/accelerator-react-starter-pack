@@ -24,7 +24,12 @@ function ModalReviewComponent({onModalReviewCloseClick}: ModalReviewComponentPro
   });
 
   const isUserNameNotFilled = formState.userName.length < 3;
+  const isAdvantageNotFilled = formState.advantage.length < 3;
+  const isDisdvantageNotFilled = formState.disadvantage.length < 3;
+  const isCommentNotFilled = formState.comment.length < 3;
   const isRatingNotChoosen = formState.rating === '';
+
+  const isPostBtnDisabled = formState.rating === '' || formState.userName.length < 3 || formState.advantage.length < 3 || formState.disadvantage.length < 3 || formState.comment.length < 3;
 
   const postedComment = {
     userName: formState.userName,
@@ -96,13 +101,16 @@ function ModalReviewComponent({onModalReviewCloseClick}: ModalReviewComponentPro
                     </div>
                   </div>
                 </div>
-                <label className="form-review__label" htmlFor="advantage">Достоинства</label>
+                <label className="form-review__label form-review__label--required" htmlFor="advantage">Достоинства</label>
                 <input className="form-review__input" id="advantage" name="advantage" onChange={handleChange} type="text" autoComplete="off" />
-                <label className="form-review__label" htmlFor="disadvantage">Недостатки</label>
+                {isAdvantageNotFilled && <span className="form-review__warning">Заполните поле</span>}
+                <label className="form-review__label form-review__label--required" htmlFor="disadvantage">Недостатки</label>
                 <input className="form-review__input" id="disadvantage" name="disadvantage" onChange={handleChange} type="text" autoComplete="off" />
-                <label className="form-review__label" htmlFor="comment">Комментарий</label>
+                {isDisdvantageNotFilled && <span className="form-review__warning">Заполните поле</span>}
+                <label className="form-review__label form-review__label--required" htmlFor="comment">Комментарий</label>
                 <textarea className="form-review__input form-review__input--textarea" id="comment" name="comment" onChange={handleChange} rows={10} autoComplete="off"></textarea>
-                <button className="button button--medium-20 form-review__button" type="submit" disabled={formState.rating === '' || formState.userName.length < 2}>Отправить отзыв</button>
+                {isCommentNotFilled && <span className="form-review__warning">Заполните поле</span>}
+                <button className="button button--medium-20 form-review__button" type="submit" disabled={isPostBtnDisabled}>Отправить отзыв</button>
               </form>
               <button className="modal__close-btn button-cross" onClick={onModalReviewCloseClick} type="button" aria-label="Закрыть"><span className="button-cross__icon"></span><span className="modal__close-btn-interactive-area"></span>
               </button>

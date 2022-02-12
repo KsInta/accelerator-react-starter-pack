@@ -5,7 +5,7 @@ import FooterComponent from './footer-component';
 
 const history = createMemoryHistory();
 
-describe('Component: Logo', () => {
+describe('Component: FooterComponent', () => {
   it('should render correctly', () => {
     render(
       <Router history={history}>
