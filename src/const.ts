@@ -14,15 +14,25 @@ const MAX_PRICE = 0;
 
 const REVIEWS_COUNT_STEP = 3;
 
+const MIN_GUITAR_COUNT_IN_CART = 1;
+
+const MAX_GUITAR_COUNT_IN_CART = 99;
+
+const BASIC_DISCOUNT = 0;
+
+const GUITARS_IN_CART_KEY_NAME = 'guitars-in-cart';
+
 const enum AppRoute {
   Root = '/',
   Guitars = '/guitars',
   GuitarsId = '/guitars/:id',
+  Cart = '/cart',
 }
 
 const enum APIRoute {
   Guitars = '/guitars',
   Comments = '/comments',
+  Coupons = '/coupons',
 }
 
 const enum SortType {
@@ -61,6 +71,7 @@ const enum InformationMessages {
   NoGuitarWithSuchId = 'Гитара с таким идентификатором не найдена',
   CommentsLoadingError = 'Не удалось загрузить комментарии. Попробуйте позже',
   ReviewPostError = 'Не удалось отправить комментарий. Попробуйте позже.',
+  CouponPostError = 'Не удалось отправить купон. Попробуйте позже',
 }
 
 const allGuitarTypes = ['acoustic', 'electric', 'ukulele'];
@@ -87,4 +98,6 @@ const RatingStar = [
   {score: '1', titleName: 'Ужасно'},
 ];
 
-export {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE, PAGE_STEP_CHANGE, BACKEND_URL, REQUEST_TIMEOUT, MIN_PRICE, MAX_PRICE, REVIEWS_COUNT_STEP, AppRoute, APIRoute, SortType, SortDirection, GuitarTypesTranslation, GuitarTypesTranslationForProductPage, StringCountByTypes, InformationMessages, allGuitarTypes, availableStringCountByTypes, ratingInStars, getParams, RatingStar};
+const coupons = ['light-333', 'medium-444', 'height-555'];
+
+export {MAX_GUITAR_COUNT_ON_PAGE, FIRST_PAGE, PAGE_STEP_CHANGE, BACKEND_URL, REQUEST_TIMEOUT, MIN_PRICE, MAX_PRICE, REVIEWS_COUNT_STEP, MIN_GUITAR_COUNT_IN_CART, MAX_GUITAR_COUNT_IN_CART, BASIC_DISCOUNT, GUITARS_IN_CART_KEY_NAME, AppRoute, APIRoute, SortType, SortDirection, GuitarTypesTranslation, GuitarTypesTranslationForProductPage, StringCountByTypes, InformationMessages, allGuitarTypes, availableStringCountByTypes, ratingInStars, getParams, RatingStar, coupons};

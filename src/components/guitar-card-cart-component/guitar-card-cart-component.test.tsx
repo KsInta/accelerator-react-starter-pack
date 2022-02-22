@@ -3,11 +3,13 @@ import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import HeaderComponent from './header-component';
+import GuitarCardCartComponent from './guitar-card-cart-component';
+import {GenerateFakeGuitar} from '../../mock/mock';
 import {MockData, MockOption, MockFilter} from '../../mock/mock-store';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
+const guitar = GenerateFakeGuitar();
 const guitarsInCart = {
   3: 2,
   6: 3,
@@ -19,15 +21,16 @@ const store = mockStore({
   FILTER: {...MockFilter},
 });
 
-describe('Component: HeaderComponent', () => {
+describe('Component: GuitarCardComponent', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <HeaderComponent />
+          <GuitarCardCartComponent guitar={guitar} guitarsInCart={guitarsInCart} />
         </Router>
       </Provider>);
 
-    expect(screen.getByText(/Перейти в корзину/i)).toBeInTheDocument();
+    expect(screen.getByText(/Артикул/i)).toBeInTheDocument();
+    expect(screen.getByText(/струнная/i)).toBeInTheDocument();
   });
 });

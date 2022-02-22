@@ -1,8 +1,8 @@
 import {ActionType, Actions} from '../types/actions';
-import {Guitar, Guitars} from '../types/types';
+import {Guitar, GuitarsBranch, GuitarsInCart} from '../types/types';
 import {SortType, SortDirection} from '../const';
 
-const loadGuitars = (guitars: Guitars): Actions => ({
+const loadGuitars = (guitars: GuitarsBranch): Actions => ({
   type: ActionType.LoadGuitars,
   payload: guitars,
 });
@@ -10,6 +10,16 @@ const loadGuitars = (guitars: Guitars): Actions => ({
 const loadGuitar = (guitar: Guitar): Actions => ({
   type: ActionType.LoadGuitar,
   payload: guitar,
+});
+
+const changeGuitarsInCart = (guitarsInCart: GuitarsInCart): Actions => ({
+  type: ActionType.ChangeGuitarsInCart,
+  payload: guitarsInCart,
+});
+
+const changeDiscount = (discount: number): Actions => ({
+  type: ActionType.ChangeDiscount,
+  payload: discount,
 });
 
 const toggleIsLoading = (isLoading: boolean): Actions => ({
@@ -25,6 +35,11 @@ const toggleIsGuitarLoading = (isGuitarLoading: boolean): Actions => ({
 const toggleIsPosting = (isCommentPosting: boolean): Actions => ({
   type: ActionType.IsCommentPosted,
   payload: isCommentPosting,
+});
+
+const toggleIsPostingCoupon = (isCouponPosting: boolean): Actions => ({
+  type: ActionType.IsCouponPosted,
+  payload: isCouponPosting,
 });
 
 const changeSorting = (option: SortType): Actions => ({
@@ -67,4 +82,4 @@ const changeActivePage = (page: number): Actions => ({
   payload: page,
 });
 
-export {loadGuitars, loadGuitar, toggleIsLoading, toggleIsGuitarLoading, toggleIsPosting, changeSorting, changeSortingDirection, changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings, changeAvailableStringCount, changeActivePage};
+export {loadGuitars, loadGuitar, changeGuitarsInCart, changeDiscount, toggleIsLoading, toggleIsGuitarLoading, toggleIsPosting, toggleIsPostingCoupon, changeSorting, changeSortingDirection, changeMinPrice, changeMaxPrice, changeGuitarTypes, changeGuitarStrings, changeAvailableStringCount, changeActivePage};

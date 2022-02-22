@@ -1,6 +1,6 @@
 import {NameSpace} from '../root-reducer';
 import {State} from '../../types/state';
-import {Guitar, Guitars} from '../../types/types';
+import {Guitar, GuitarsBranch, GuitarsInCart} from '../../types/types';
 
 const getDataLoaded = (state: State): boolean => state[NameSpace.data].isDataLoaded;
 
@@ -8,8 +8,14 @@ const getGuitarLoaded = (state: State): boolean => state[NameSpace.data].isGuita
 
 const getCommentPosted = (state: State): boolean => state[NameSpace.data].isCommentPosted;
 
-const getGuitars = (state: State): Guitars => state[NameSpace.data].guitars;
+const getCouponPosted = (state: State): boolean => state[NameSpace.data].isCouponPosted;
+
+const getGuitars = (state: State): GuitarsBranch => state[NameSpace.data].guitars;
 
 const getGuitar = (state: State): Guitar => state[NameSpace.data].guitar;
 
-export {getDataLoaded, getCommentPosted, getGuitars, getGuitar, getGuitarLoaded};
+const getGuitarsInCart = (state: State): GuitarsInCart => state[NameSpace.data].guitarsInCart;
+
+const getDiscount = (state: State): number => state[NameSpace.data].discount;
+
+export {getDataLoaded, getCommentPosted, getCouponPosted, getGuitars, getGuitar, getGuitarLoaded, getGuitarsInCart, getDiscount};

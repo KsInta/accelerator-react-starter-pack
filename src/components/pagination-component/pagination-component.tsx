@@ -1,4 +1,6 @@
+import {useState, useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import {useLocation} from 'react-router-dom';
 import {changeActivePage} from '../../store/actions';
 import {getFilteredGuitarsByAllFilters, getPagesCount} from '../../utils/utils';
 import {PAGE_STEP_CHANGE, getParams} from '../../const';
@@ -6,8 +8,6 @@ import {getGuitars} from '../../store/app-data/selectors';
 import {getActivePage} from '../../store/option-process/selectors';
 import {getMinPrice, getMaxPrice, getGuitarTypes, getGuitarStrings} from '../../store/filter-process/selectors';
 import browserHistory from '../../browser-history';
-import {useLocation} from 'react-router-dom';
-import {useState, useEffect} from 'react';
 
 function PaginationComponent(): JSX.Element {
   const guitars = useSelector(getGuitars);
@@ -26,7 +26,7 @@ function PaginationComponent(): JSX.Element {
 
   const [activePageFromURL] = useState(activePageURL);
 
-  const filteredGuitars = getFilteredGuitarsByAllFilters(guitars, minPrice, maxPrice, guitarTypes, guitarStrings);
+  const filteredGuitars = getFilteredGuitarsByAllFilters(Object.values(guitars), minPrice, maxPrice, guitarTypes, guitarStrings);
 
   const pages = getPagesCount(filteredGuitars);
 

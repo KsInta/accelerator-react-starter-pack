@@ -36,7 +36,7 @@ function GuitarsFilterComponent(): JSX.Element {
 
   const availableStrings = getAvailableStrings(guitarType);
 
-  const sortedGuitarsByPrice = guitars.slice().sort(comparePrice);
+  const sortedGuitarsByPrice = Object.values(guitars).slice().sort(comparePrice);
 
   const handleMinPriceChange = ({target: {value}}: ChangeEvent<HTMLInputElement>) => {
     setMinPriceInInput(+value);

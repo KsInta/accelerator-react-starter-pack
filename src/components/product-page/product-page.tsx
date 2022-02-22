@@ -5,6 +5,8 @@ import {Link} from 'react-router-dom';
 import FooterComponent from '../footer-component/footer-component';
 import HeaderComponent from '../header-component/header-component';
 import LoadingScreen from '../loading-screen/loading-screen';
+import ModalCartComponent from '../modal-cart-component/modal-cart-component';
+import ModalCartSuccessComponent from '../modal-cart-success-component/modal-cart-success-component';
 import ModalReviewComponent from '../modal-review-component/modal-review-component';
 import ModalReviewSuccessComponent from '../modal-review-success-component/modal-review-success-component';
 import PageNotFound from '../page-not-found/page-not-found';
@@ -25,6 +27,8 @@ function ProductPage(): JSX.Element {
   const [isDataLoaded, setDataLoaded] = useState(isGuitarLoaded);
   const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
   const [isModalReviewSuccessOpen, setIsModalReviewSuccessOpen] = useState(false);
+  const [isModalCartOpen, setIsModalCartOpen] = useState(false);
+  const [isModalCartSuccessOpen, setIsModalCartSuccessOpen] = useState(false);
 
   const handleModalReviewBtnClick = () => {
     setIsModalReviewOpen(true);
@@ -37,6 +41,23 @@ function ProductPage(): JSX.Element {
   const handleModalReviewSuccessCloseClick = () => {
     setIsModalReviewSuccessOpen(false);
     dispatch(toggleIsPosting(false));
+  };
+
+  const handleModalCartBtnClick = () => {
+    setIsModalCartOpen(true);
+  };
+
+  const handleModalCartCloseClick = () => {
+    setIsModalCartOpen(false);
+  };
+
+  const handleModalCartSuccessClick = () => {
+    setIsModalCartOpen(false);
+    setIsModalCartSuccessOpen(true);
+  };
+
+  const handleModalSuccessCloseClick = () => {
+    setIsModalCartSuccessOpen(false);
   };
 
   useEffect(() => {
@@ -91,12 +112,14 @@ function ProductPage(): JSX.Element {
             </div>
             <div className="product-container__price-wrapper">
               <p className="product-container__price-info product-container__price-info--title">Цена:</p>
-              <p className="product-container__price-info product-container__price-info--value">{guitar.price} ₽</p><a className="button button--red button--big product-container__button" href="#">Добавить в корзину</a>
+              <p className="product-container__price-info product-container__price-info--value">{guitar.price} ₽</p><a className="button button--red button--big product-container__button" onClick={handleModalCartBtnClick} href="#cart">Добавить в корзину</a>
             </div>
           </div>
           <ReviewsListComponent onModalReviewBtnClick={handleModalReviewBtnClick}/>
           {isModalReviewOpen && <ModalReviewComponent onModalReviewCloseClick={handleModalReviewCloseClick} />}
           {isModalReviewSuccessOpen && <ModalReviewSuccessComponent onModalReviewSuccessCloseClick={handleModalReviewSuccessCloseClick} />}
+          {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
+          {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
         </div>
       </main>
       <FooterComponent />

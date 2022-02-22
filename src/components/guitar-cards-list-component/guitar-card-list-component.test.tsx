@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import GuitarCardsListComponent from './guitar-cards-list-component';
 import {AppRoute} from '../../const';
+import {Guitar, GuitarsBranch} from '../../types/types';
 import {GenerateFakeGuitar, MIN_PRICE, MAX_PRICE} from '../../mock/mock';
 import {MockData, MockOption, MockFilter} from '../../mock/mock-store';
 
@@ -16,16 +17,24 @@ const history = createMemoryHistory();
 const mockStore = configureMockStore();
 
 const fakeGuitarsMore = new Array(GUITAR_COUNT_MORE_THEN_ONE_PAGE).fill(null).map((guitar, index) => guitar = {...GenerateFakeGuitar(), id: index});
+const normalizedDataMore = fakeGuitarsMore.reduce<GuitarsBranch>((acc, item: Guitar) => {
+  acc[item.id] = item;
+  return acc;
+}, {});
 const fakeGuitarsLess = new Array(GUITAR_COUNT_LESS_THEN_ONE_PAGE).fill(null).map((guitar, index) => guitar = {...GenerateFakeGuitar(), id: index});
+const normalizedDataLess = fakeGuitarsLess.reduce<GuitarsBranch>((acc, item: Guitar) => {
+  acc[item.id] = item;
+  return acc;
+}, {});
 
 const storeMore = mockStore({
-  DATA: {...MockData, guitars: fakeGuitarsMore},
+  DATA: {...MockData, guitars: normalizedDataMore},
   OPTION: {...MockOption},
   FILTER: {...MockFilter, minPrice: MIN_PRICE, maxPrice: MAX_PRICE},
 });
 
 const storeLess = mockStore({
-  DATA: {...MockData, guitars: fakeGuitarsLess},
+  DATA: {...MockData, guitars: normalizedDataLess},
   OPTION: {...MockOption},
   FILTER: {...MockFilter, minPrice: MIN_PRICE, maxPrice: MAX_PRICE},
 });

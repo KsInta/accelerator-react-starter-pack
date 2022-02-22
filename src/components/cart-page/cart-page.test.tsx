@@ -3,31 +3,28 @@ import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import HeaderComponent from './header-component';
+import CartPage from './cart-page';
 import {MockData, MockOption, MockFilter} from '../../mock/mock-store';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
-const guitarsInCart = {
-  3: 2,
-  6: 3,
-};
 
 const store = mockStore({
-  DATA: {...MockData, guitarsInCart},
+  DATA: {...MockData},
   OPTION: {...MockOption},
   FILTER: {...MockFilter},
 });
 
-describe('Component: HeaderComponent', () => {
+describe('Component: CartPage', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <HeaderComponent />
+          <CartPage />
         </Router>
       </Provider>);
 
-    expect(screen.getByText(/Перейти в корзину/i)).toBeInTheDocument();
+    expect(screen.getByText(/К оплате:/i)).toBeInTheDocument();
+    expect(screen.getByText(/Оформить заказ/i)).toBeInTheDocument();
   });
 });

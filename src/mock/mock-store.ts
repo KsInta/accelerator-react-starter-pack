@@ -1,12 +1,15 @@
-import {FIRST_PAGE, SortType, SortDirection, availableStringCountByTypes} from '../const';
+import {BASIC_DISCOUNT, FIRST_PAGE, SortType, SortDirection, availableStringCountByTypes} from '../const';
 import {MIN_PRICE, MAX_PRICE} from './mock';
 
 const MockData = {
   guitars: [],
   guitar: {},
+  guitarsInCart: {},
+  discount: BASIC_DISCOUNT,
   isDataLoaded: false,
   isGuitarLoaded: false,
   isCommentPosted: false,
+  isCouponPosted: false,
 };
 
 const MockFilter = {

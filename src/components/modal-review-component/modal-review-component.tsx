@@ -102,13 +102,13 @@ function ModalReviewComponent({onModalReviewCloseClick}: ModalReviewComponentPro
                   </div>
                 </div>
                 <label className="form-review__label form-review__label--required" htmlFor="advantage">Достоинства</label>
-                <input className="form-review__input" id="advantage" name="advantage" onChange={handleChange} type="text" autoComplete="off" />
+                <input className="form-review__input" id="advantage" name="advantage" data-testid="advantage" onChange={handleChange} type="text" autoComplete="off" />
                 {isAdvantageNotFilled && <span className="form-review__warning">Заполните поле</span>}
                 <label className="form-review__label form-review__label--required" htmlFor="disadvantage">Недостатки</label>
-                <input className="form-review__input" id="disadvantage" name="disadvantage" onChange={handleChange} type="text" autoComplete="off" />
+                <input className="form-review__input" id="disadvantage" name="disadvantage" data-testid="disadvantage" onChange={handleChange} type="text" autoComplete="off" />
                 {isDisdvantageNotFilled && <span className="form-review__warning">Заполните поле</span>}
                 <label className="form-review__label form-review__label--required" htmlFor="comment">Комментарий</label>
-                <textarea className="form-review__input form-review__input--textarea" id="comment" name="comment" onChange={handleChange} rows={10} autoComplete="off"></textarea>
+                <textarea className="form-review__input form-review__input--textarea" id="comment" name="comment" data-testid="comment" onChange={handleChange} rows={10} autoComplete="off"></textarea>
                 {isCommentNotFilled && <span className="form-review__warning">Заполните поле</span>}
                 <button className="button button--medium-20 form-review__button" type="submit" disabled={isPostBtnDisabled}>Отправить отзыв</button>
               </form>

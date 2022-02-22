@@ -3,31 +3,31 @@ import {Router} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {createMemoryHistory} from 'history';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import HeaderComponent from './header-component';
+import CouponComponent from './coupon-component';
+import userEvent from '@testing-library/user-event';
 import {MockData, MockOption, MockFilter} from '../../mock/mock-store';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
-const guitarsInCart = {
-  3: 2,
-  6: 3,
-};
 
 const store = mockStore({
-  DATA: {...MockData, guitarsInCart},
+  DATA: {...MockData},
   OPTION: {...MockOption},
   FILTER: {...MockFilter},
 });
 
-describe('Component: HeaderComponent', () => {
+describe('Component: CouponComponent', () => {
   it('should render correctly', () => {
     render(
       <Provider store={store}>
         <Router history={history}>
-          <HeaderComponent />
+          <CouponComponent />
         </Router>
       </Provider>);
 
-    expect(screen.getByText(/Перейти в корзину/i)).toBeInTheDocument();
+    expect(screen.getByText(/Введите свой промокод/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', {name: 'Применить'})).toBeInTheDocument();
+    userEvent.type(screen.getByTestId('coupon'), 'light-333');
+    expect(screen.getByDisplayValue(/light-333/i)).toBeInTheDocument();
   });
 });

@@ -16,7 +16,7 @@ function FormSearchComponent(): JSX.Element {
   };
 
   if (searchString.length > 0) {
-    searchList = guitars.filter((guitar) => guitar.name.toLowerCase().includes(searchString.toLowerCase()));
+    searchList = Object.values(guitars).filter((guitar) => guitar.name.toLowerCase().includes(searchString.toLowerCase()));
   }
 
   let searchHidden = '';

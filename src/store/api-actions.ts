@@ -1,7 +1,7 @@
 import {ThunkActionResult} from '../types/actions';
 import {toast} from 'react-toastify';
-import {loadGuitars, loadGuitar, toggleIsLoading, toggleIsPosting, changeMinPrice, changeMaxPrice} from './actions';
-import {Guitars, PostComment} from '../types/types';
+import {loadGuitars, loadGuitar, changeDiscount, toggleIsLoading, toggleIsPosting, toggleIsPostingCoupon, changeMinPrice, changeMaxPrice} from './actions';
+import {Guitar, Guitars, PostComment, PostCoupon, GuitarsBranch} from '../types/types';
 import {APIRoute} from '../const';
 import {comparePrice} from '../sorting';
 import {InformationMessages} from '../const';
@@ -13,7 +13,11 @@ const fetchGuitarsAction = (): ThunkActionResult =>
     try {
       dispatch(toggleIsLoading(false));
       const {data} = await api.get<Guitars>(baseUrl);
-      dispatch(loadGuitars(data));
+      const normalizedData = data.reduce<GuitarsBranch>((acc, item: Guitar) => {
+        acc[item.id] = item;
+        return acc;
+      }, {});
+      dispatch(loadGuitars(normalizedData));
       const dataSortedByPrice = data.slice().sort(comparePrice);
       dispatch(changeMinPrice(dataSortedByPrice[0].price));
       dispatch(changeMaxPrice(dataSortedByPrice[dataSortedByPrice.length - 1].price));
@@ -47,4 +51,16 @@ const postCommentAction = (id: number, comment: PostComment): ThunkActionResult 
     }
   };
 
-export {fetchGuitarsAction, fetchOfferByIdAction, postCommentAction};
+const postCouponAction = (coupon: PostCoupon): ThunkActionResult =>
+  async (dispatch, _getState, api): Promise<void> => {
+    try {
+      dispatch(toggleIsPostingCoupon(true));
+      const {data} = await api.post(APIRoute.Coupons, coupon);
+      dispatch(changeDiscount(data));
+      dispatch(toggleIsPostingCoupon(false));
+    } catch {
+      toast.error(InformationMessages.CouponPostError);
+    }
+  };
+
+export {fetchGuitarsAction, fetchOfferByIdAction, postCommentAction, postCouponAction};

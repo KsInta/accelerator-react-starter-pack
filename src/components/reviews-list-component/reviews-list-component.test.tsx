@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import ReviewsListComponent from './reviews-list-component';
 import {AppRoute} from '../../const';
-import {GenerateFakeComment} from '../../mock/mock';
+import {GenerateFakeComment, GenerateFakeGuitar} from '../../mock/mock';
 import {MockData, MockOption, MockFilter} from '../../mock/mock-store';
 
 const COMMENT_COUNT_MORE_THEN_ON_START = 5;
@@ -15,18 +15,23 @@ const COMMENT_COUNT_ON_START = 3;
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
+const fakeGuitarMoreComments = GenerateFakeGuitar();
+const fakeGuitarLessComments = GenerateFakeGuitar();
 
 const fakeCommentsMore = new Array(COMMENT_COUNT_MORE_THEN_ON_START).fill(null).map((comment) => comment = {...GenerateFakeComment()});
 const fakeCommentsLess = new Array(COMMENT_COUNT_LESS_THEN_ON_START).fill(null).map((comment) => comment = {...GenerateFakeComment()});
 
+fakeGuitarMoreComments.comments = fakeCommentsMore;
+fakeGuitarLessComments.comments = fakeCommentsLess;
+
 const storeMore = mockStore({
-  DATA: {...MockData, guitarComments: fakeCommentsMore},
+  DATA: {...MockData, guitar: fakeGuitarMoreComments},
   OPTION: {...MockOption},
   FILTER: {...MockFilter},
 });
 
 const storeLess = mockStore({
-  DATA: {...MockData, guitarComments: fakeCommentsLess},
+  DATA: {...MockData, guitar: fakeGuitarLessComments},
   OPTION: {...MockOption},
   FILTER: {...MockFilter},
 });

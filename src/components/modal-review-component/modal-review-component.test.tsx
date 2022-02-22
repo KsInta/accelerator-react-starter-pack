@@ -9,16 +9,13 @@ import ModalReviewComponent from './modal-review-component';
 import {GenerateFakeGuitar} from '../../mock/mock';
 import {MockData, MockOption, MockFilter} from '../../mock/mock-store';
 
-const GUITAR_COUNT_MORE_THEN_ONE_PAGE = 25;
-
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
 const onModalReviewCloseClick = jest.fn();
-
-const fakeGuitars = new Array(GUITAR_COUNT_MORE_THEN_ONE_PAGE).fill(null).map((guitar, index) => guitar = {...GenerateFakeGuitar(), id: index});
+const fakeGuitar = GenerateFakeGuitar();
 
 const store = mockStore({
-  DATA: {...MockData, guitars: fakeGuitars, guitar: fakeGuitars[0]},
+  DATA: {...MockData, guitar: fakeGuitar},
   OPTION: {...MockOption},
   FILTER: {...MockFilter},
 });
@@ -36,7 +33,7 @@ describe('Component: ModalReviewComponent', () => {
     render(fakeReviewComponent);
 
     expect(screen.getByRole('button', { name: 'Отправить отзыв' })).toBeInTheDocument();
-    expect(screen.getByText(fakeGuitars[0].name)).toBeInTheDocument();
+    expect(screen.getByText(fakeGuitar.name)).toBeInTheDocument();
     expect(screen.getByText(/Ваше Имя/i)).toBeInTheDocument();
     expect(screen.getByText(/Комментарий/i)).toBeInTheDocument();
   });
@@ -48,6 +45,9 @@ describe('Component: ModalReviewComponent', () => {
 
     userEvent.type(screen.getByTestId('userName'), 'Vladimir');
     userEvent.click(screen.getByTestId('4-stars'));
+    userEvent.type(screen.getByTestId('advantage'), 'Хорошая');
+    userEvent.type(screen.getByTestId('disadvantage'), 'Быстро расстраивается');
+    userEvent.type(screen.getByTestId('comment'), 'Подойдет для новичка');
 
     expect(screen.getByDisplayValue(/Vladimir/i)).toBeInTheDocument();
     expect(screen.getByRole('button', {name: /Отправить отзыв/i})).toBeEnabled();

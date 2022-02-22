@@ -11,7 +11,7 @@ const history = createMemoryHistory();
 const mockStore = configureMockStore();
 
 const store = mockStore({
-  DATA: {...MockData},
+  DATA: {...MockData, isDataLoaded: true},
   OPTION: {...MockOption},
   FILTER: {...MockFilter},
 });

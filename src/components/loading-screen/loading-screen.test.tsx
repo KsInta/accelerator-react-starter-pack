@@ -5,7 +5,7 @@ import LoadingScreen from './loading-screen';
 
 const history = createMemoryHistory();
 
-describe('Component: Logo', () => {
+describe('Component: LoadingScreen', () => {
   it('should render correctly', () => {
     render(
       <Router history={history}>

@@ -18,7 +18,7 @@ function GuitarCardsListComponent(): JSX.Element {
   const guitarTypes = useSelector(getGuitarTypes);
   const guitarStrings = useSelector(getGuitarStrings);
 
-  let filteredGuitars = getFilteredGuitarsByAllFilters(guitars, minPrice, maxPrice, guitarTypes, guitarStrings);
+  let filteredGuitars = getFilteredGuitarsByAllFilters(Object.values(guitars), minPrice, maxPrice, guitarTypes, guitarStrings);
 
   filteredGuitars = getSortedGuitarsByDirection(filteredGuitars, sortType, sortDirection);
 

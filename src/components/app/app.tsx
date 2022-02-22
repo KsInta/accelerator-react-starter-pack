@@ -1,5 +1,6 @@
 import {useSelector} from 'react-redux';
 import {Switch, Route} from 'react-router-dom';
+import CartPage from '../cart-page/cart-page';
 import LoadingScreen from '../loading-screen/loading-screen';
 import MainScreen from '../main-screen/main-screen';
 import PageNotFound from '../page-not-found/page-not-found';
@@ -20,6 +21,9 @@ function App(): JSX.Element {
     <Switch>
       <Route path={AppRoute.Root} exact>
         <MainScreen />
+      </Route>
+      <Route path={AppRoute.Cart} exact>
+        <CartPage />
       </Route>
       <Route path={AppRoute.Guitars} exact>
         <MainScreen />

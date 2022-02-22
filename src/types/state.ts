@@ -1,13 +1,16 @@
 import {SortType, SortDirection} from '../const';
-import {Guitar, Guitars} from './types';
+import {Guitar, GuitarsBranch, GuitarsInCart} from './types';
 import {RootState} from '../store/root-reducer';
 
 type AppData = {
-  guitars: Guitars,
+  guitars: GuitarsBranch,
   guitar: Guitar,
+  guitarsInCart: GuitarsInCart,
+  discount: number,
   isDataLoaded: boolean,
   isGuitarLoaded: boolean,
   isCommentPosted: boolean,
+  isCouponPosted: boolean,
 }
 
 type OptionProcess = {

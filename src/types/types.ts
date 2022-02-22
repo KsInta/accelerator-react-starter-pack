@@ -31,8 +31,20 @@ type PostComment = {
   guitarId: number,
 };
 
+type PostCoupon = {
+  coupon: string,
+};
+
+interface GuitarsBranch {
+  [guitarId: number]: Guitar;
+}
+
 type Guitars = Guitar[];
 
 type Comments = Comment[];
 
-export type {Guitar, Guitars, Comment, Comments, PostComment};
+interface GuitarsInCart {
+  [guitarId: number]: number;
+}
+
+export type {Guitar, Guitars, Comment, Comments, PostComment, PostCoupon, GuitarsBranch, GuitarsInCart};

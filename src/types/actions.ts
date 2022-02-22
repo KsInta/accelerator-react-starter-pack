@@ -1,7 +1,7 @@
 import {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {AxiosInstance} from 'axios';
 import {State} from './state';
-import {Guitar, Guitars} from './types';
+import {Guitar, GuitarsBranch, GuitarsInCart} from './types';
 import {SortType, SortDirection} from '../const';
 
 const enum ActionType {
@@ -9,9 +9,12 @@ const enum ActionType {
   ChangeSortingDirection = 'option/changeSortingDirection',
   LoadGuitars = 'data/loadGuitars',
   LoadGuitar = 'data/loadGuitar',
+  ChangeGuitarsInCart = 'data/changeGuitarsInCart',
+  ChangeDiscount = 'data/changeDiscount',
   IsDataLoaded = 'data/isLoading',
   IsGuitarLoaded = 'data/isGuitarLoaded',
   IsCommentPosted = 'data/isCommentPosting',
+  IsCouponPosted = 'data/isCouponPosting',
   ChangeMinPrice = 'filter/changeMinPrice',
   ChangeMaxPrice = 'filter/changeMaxPrice',
   ChangeGuitarTypes = 'filter/changeGuitarTypes',
@@ -23,12 +26,22 @@ const enum ActionType {
 
 type LoadGuitarsAction = {
   type: ActionType.LoadGuitars,
-  payload: Guitars,
+  payload: GuitarsBranch,
 }
 
 type LoadGuitarAction = {
   type: ActionType.LoadGuitar,
   payload: Guitar,
+}
+
+type ChangeGuitarsInCartAction = {
+  type: ActionType.ChangeGuitarsInCart,
+  payload: GuitarsInCart,
+}
+
+type ChangeDiscountAction = {
+  type: ActionType.ChangeDiscount,
+  payload: number,
 }
 
 type IsDataLoadedAction = {
@@ -43,6 +56,11 @@ type IsGuitarLoadedAction = {
 
 type IsCommentPostedAction = {
   type: ActionType.IsCommentPosted,
+  payload: boolean,
+}
+
+type IsCouponPostedAction = {
+  type: ActionType.IsCouponPosted,
   payload: boolean,
 }
 
@@ -95,7 +113,7 @@ type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance,
 
 type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>;
 
-type Actions = LoadGuitarsAction | LoadGuitarAction | IsDataLoadedAction | IsGuitarLoadedAction | IsCommentPostedAction | ChangeSortingAction | ChangeSortingDirectionAction | ChangeMinPriceAction | ChangeMaxPriceAction | ChangeGuitarTypesAction | ChangeGuitarStringsAction | ChangeAvailableStringCountAction | ChangePagesCountAction | ChangeActivePageAction;
+type Actions = LoadGuitarsAction | LoadGuitarAction | ChangeGuitarsInCartAction | ChangeDiscountAction | IsDataLoadedAction | IsGuitarLoadedAction | IsCommentPostedAction | IsCouponPostedAction | ChangeSortingAction | ChangeSortingDirectionAction | ChangeMinPriceAction | ChangeMaxPriceAction | ChangeGuitarTypesAction | ChangeGuitarStringsAction | ChangeAvailableStringCountAction | ChangePagesCountAction | ChangeActivePageAction;
 
 export {ActionType};
 
