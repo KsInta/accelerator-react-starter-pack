@@ -2,6 +2,7 @@ import {useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {ChangeEvent} from 'react';
 import ModalCartDeleteComponent from '../modal-cart-delete-component/modal-cart-delete-component';
+import ModalWrapperComponent from '../modal-wrapper-component/modal-wrapper-component';
 import {changeGuitarsInCart} from '../../store/actions';
 import {Guitar, GuitarsInCart} from '../../types/types';
 import {GuitarTypesTranslationForProductPage} from '../../const';
@@ -100,14 +101,9 @@ function GuitarCardCartComponent({guitar, guitarsInCart}: GuitarCardCartComponen
         <div className="cart-item__price-total">{totalGuitarPrice} ₽</div>
       </div>
       {isModalCartOpen &&
-      <div style={{position: 'absolute'}}>
-        <div className="modal is-active modal-for-ui-kit">
-          <div className="modal__wrapper">
-            <div className="modal__overlay" data-close-modal></div>
-            <ModalCartDeleteComponent guitar={guitar} onModalCartDeleteCloseClick={handleDeleteGuitarFromCartCloseClick} onModalCartDeleteFromListClick={handleDeleteGuitarFromCartListClick}/>
-          </div>
-        </div>
-      </div>}
+      <ModalWrapperComponent className=''>
+        <ModalCartDeleteComponent guitar={guitar} onModalCartDeleteCloseClick={handleDeleteGuitarFromCartCloseClick} onModalCartDeleteFromListClick={handleDeleteGuitarFromCartListClick}/>
+      </ModalWrapperComponent>}
     </>
   );
 }

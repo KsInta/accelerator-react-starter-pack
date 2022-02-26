@@ -9,6 +9,7 @@ import ModalCartComponent from '../modal-cart-component/modal-cart-component';
 import ModalCartSuccessComponent from '../modal-cart-success-component/modal-cart-success-component';
 import ModalReviewComponent from '../modal-review-component/modal-review-component';
 import ModalReviewSuccessComponent from '../modal-review-success-component/modal-review-success-component';
+import ModalWrapperComponent from '../modal-wrapper-component/modal-wrapper-component';
 import PageNotFound from '../page-not-found/page-not-found';
 import ProductTabs from '../product-tabs/product-tabs';
 import GuitarRating from '../guitar-rating/guitar-rating';
@@ -126,17 +127,12 @@ function ProductPage(): JSX.Element {
           </div>
           <ReviewsListComponent onModalReviewBtnClick={handleModalReviewBtnClick}/>
           {isModalVisible &&
-          <div style={{position: 'absolute'}}>
-            <div className={`modal is-active modal-for-ui-kit ${className}`}>
-              <div className="modal__wrapper">
-                <div className="modal__overlay" data-close-modal></div>
-                {isModalReviewOpen && <ModalReviewComponent onModalReviewCloseClick={handleModalReviewCloseClick} />}
-                {isModalReviewSuccessOpen && <ModalReviewSuccessComponent onModalReviewSuccessCloseClick={handleModalReviewSuccessCloseClick} />}
-                {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
-                {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
-              </div>
-            </div>
-          </div>}
+          <ModalWrapperComponent className={className}>
+            {isModalReviewOpen && <ModalReviewComponent onModalReviewCloseClick={handleModalReviewCloseClick} />}
+            {isModalReviewSuccessOpen && <ModalReviewSuccessComponent onModalReviewSuccessCloseClick={handleModalReviewSuccessCloseClick} />}
+            {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
+            {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
+          </ModalWrapperComponent>}
         </div>
       </main>
       <FooterComponent />

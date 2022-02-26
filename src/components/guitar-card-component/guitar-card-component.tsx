@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import GuitarRating from '../guitar-rating/guitar-rating';
 import ModalCartComponent from '../modal-cart-component/modal-cart-component';
 import ModalCartSuccessComponent from '../modal-cart-success-component/modal-cart-success-component';
+import ModalWrapperComponent from '../modal-wrapper-component/modal-wrapper-component';
 import {AppRoute} from '../../const';
 import {Guitar} from '../../types/types';
 import {getGuitarsInCart} from '../../store/app-data/selectors';
@@ -63,15 +64,10 @@ function GuitarCardComponent({guitar}: GuitarComponentProps): JSX.Element {
         </div>
       </div>
       {isModalVisible &&
-      <div style={{position: 'absolute'}}>
-        <div className={`modal is-active modal-for-ui-kit ${className}`}>
-          <div className="modal__wrapper">
-            <div className="modal__overlay" data-close-modal></div>
-            {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
-            {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
-          </div>
-        </div>
-      </div>}
+      <ModalWrapperComponent className={className}>
+        {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
+        {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
+      </ModalWrapperComponent>}
     </>
   );
 }
