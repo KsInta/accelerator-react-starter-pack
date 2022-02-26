@@ -99,7 +99,15 @@ function GuitarCardCartComponent({guitar, guitarsInCart}: GuitarCardCartComponen
         </div>
         <div className="cart-item__price-total">{totalGuitarPrice} ₽</div>
       </div>
-      {isModalCartOpen && <ModalCartDeleteComponent guitar={guitar} onModalCartDeleteCloseClick={handleDeleteGuitarFromCartCloseClick} onModalCartDeleteFromListClick={handleDeleteGuitarFromCartListClick}/>}
+      {isModalCartOpen &&
+      <div style={{position: 'absolute'}}>
+        <div className="modal is-active modal-for-ui-kit">
+          <div className="modal__wrapper">
+            <div className="modal__overlay" data-close-modal></div>
+            <ModalCartDeleteComponent guitar={guitar} onModalCartDeleteCloseClick={handleDeleteGuitarFromCartCloseClick} onModalCartDeleteFromListClick={handleDeleteGuitarFromCartListClick}/>
+          </div>
+        </div>
+      </div>}
     </>
   );
 }

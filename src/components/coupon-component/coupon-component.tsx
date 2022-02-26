@@ -2,30 +2,33 @@ import {useState, ChangeEvent, FormEvent} from 'react';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {postCouponAction} from '../../store/api-actions';
-import {changeDiscount} from '../../store/actions';
-import {getCouponPosted} from '../../store/app-data/selectors';
-import {coupons} from '../../const';
+import {getDiscount, getCouponPosted} from '../../store/app-data/selectors';
 
 function CouponComponent(): JSX.Element {
+  const discount = useSelector(getDiscount);
   const isCouponPosted = useSelector(getCouponPosted);
   const [coupon, setCoupon] = useState('');
   const [isCouponValid, setIsCouponValid] = useState<boolean | null>(null);
   const dispatch = useDispatch();
 
   let couponText;
-  const couponClass = isCouponValid ? 'form-input__message--success' : 'form-input__message--error';
+  let couponClass;
   const submitBtn = !isCouponPosted ? <button className="button button--big coupon__button" disabled={isCouponPosted}>Применить</button> : <span className="button button--big coupon__button" style={{width: '100px', background: 'white', height: '40px', padding: 0}}><img src="/img/svg/coupon-loader.svg" style={{margin: '0 auto'}} width={36} alt="Loading"/></span>;
 
   if (isCouponValid === null) {
     couponText = '';
-  } else if (isCouponValid && !isCouponPosted) {
-    couponText = 'Промокод принят';
-  } else if (!isCouponValid && coupon !== '') {
-    couponText = 'неверный промокод';
+  } else if (!isCouponPosted) {
+    if (discount !== 0) {
+      couponText = 'Промокод принят';
+      couponClass = 'form-input__message--success';
+    } else {
+      couponText = 'неверный промокод';
+      couponClass = 'form-input__message--error';
+    }
   }
 
   const handleCouponChange = ({target: {value}}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setCoupon(value);
+    setCoupon(value.toLocaleLowerCase());
   };
 
   const handleCouponChangeOnBlur = () => {
@@ -37,19 +40,13 @@ function CouponComponent(): JSX.Element {
     const postedCoupon = {
       coupon,
     };
-    let isCouponChecked = false;
-    coupons.map((item) => {
-      if (item === coupon) {
-        postedCoupon.coupon = coupon;
-        dispatch(postCouponAction(postedCoupon));
-        setIsCouponValid(true);
-        isCouponChecked = true;
-      }
-    });
 
-    if (!isCouponChecked) {
-      dispatch(changeDiscount(0));
+    dispatch(postCouponAction(postedCoupon));
+
+    if (discount === 0) {
       setIsCouponValid(false);
+    } else if (discount !== 0 ) {
+      setIsCouponValid(true);
     }
   };
 
@@ -60,7 +57,7 @@ function CouponComponent(): JSX.Element {
       <form className="coupon__form" onSubmit={handleFormSubmit} id="coupon-form">
         <div className="form-input coupon__input">
           <label className="visually-hidden">Промокод</label>
-          <input onChange={handleCouponChange} onBlur={handleCouponChangeOnBlur} type="text" placeholder="Введите промокод" id="coupon" name="coupon" data-testid="coupon" value={coupon}/>
+          <input onChange={handleCouponChange} onBlur={handleCouponChangeOnBlur} type="text" placeholder="Введите промокод" id="coupon" name="coupon" data-testid="coupon" value={coupon} autoComplete="off" />
           <p className={`form-input__message ${couponClass}`}>{couponText}</p>
         </div>
         {submitBtn}

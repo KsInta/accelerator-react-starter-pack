@@ -30,6 +30,15 @@ function ProductPage(): JSX.Element {
   const [isModalCartOpen, setIsModalCartOpen] = useState(false);
   const [isModalCartSuccessOpen, setIsModalCartSuccessOpen] = useState(false);
 
+  const isModalVisible = isModalReviewOpen || isModalReviewSuccessOpen || isModalCartOpen || isModalCartSuccessOpen;
+  let className = '';
+
+  if (isModalReviewSuccessOpen || isModalCartSuccessOpen) {
+    className = 'modal--success';
+  } else if (isModalReviewOpen) {
+    className = 'modal--review';
+  }
+
   const handleModalReviewBtnClick = () => {
     setIsModalReviewOpen(true);
   };
@@ -116,10 +125,18 @@ function ProductPage(): JSX.Element {
             </div>
           </div>
           <ReviewsListComponent onModalReviewBtnClick={handleModalReviewBtnClick}/>
-          {isModalReviewOpen && <ModalReviewComponent onModalReviewCloseClick={handleModalReviewCloseClick} />}
-          {isModalReviewSuccessOpen && <ModalReviewSuccessComponent onModalReviewSuccessCloseClick={handleModalReviewSuccessCloseClick} />}
-          {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
-          {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
+          {isModalVisible &&
+          <div style={{position: 'absolute'}}>
+            <div className={`modal is-active modal-for-ui-kit ${className}`}>
+              <div className="modal__wrapper">
+                <div className="modal__overlay" data-close-modal></div>
+                {isModalReviewOpen && <ModalReviewComponent onModalReviewCloseClick={handleModalReviewCloseClick} />}
+                {isModalReviewSuccessOpen && <ModalReviewSuccessComponent onModalReviewSuccessCloseClick={handleModalReviewSuccessCloseClick} />}
+                {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
+                {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
+              </div>
+            </div>
+          </div>}
         </div>
       </main>
       <FooterComponent />

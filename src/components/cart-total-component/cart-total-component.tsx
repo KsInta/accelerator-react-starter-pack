@@ -4,8 +4,8 @@ type CartTotalComponentProps = {
 }
 
 function CartTotalComponent({totalPrice, discount}: CartTotalComponentProps): JSX.Element {
-  const totalDiscount = discount / 100 * totalPrice;
-  const finalPrice = (100 - discount) / 100 * totalPrice;
+  const totalDiscount = Math.ceil(discount / 100 * totalPrice);
+  const finalPrice = Math.ceil((100 - discount) / 100 * totalPrice);
 
   return(
     <div className="cart__total-info">

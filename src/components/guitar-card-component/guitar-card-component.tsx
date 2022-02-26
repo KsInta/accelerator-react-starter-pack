@@ -21,6 +21,13 @@ function GuitarCardComponent({guitar}: GuitarComponentProps): JSX.Element {
   const buyBtnText = guitarsInCart[id] ? 'В корзине' : 'Купить';
   const buyBtnRedirect = guitarsInCart[id] ? `${AppRoute.Cart}` : `#${id}`;
 
+  const isModalVisible = isModalCartOpen || isModalCartSuccessOpen;
+  let className = '';
+
+  if (isModalCartSuccessOpen) {
+    className = 'modal--success';
+  }
+
   const handleModalCartOpenClick = () => {
     setIsModalCartOpen(true);
   };
@@ -55,8 +62,16 @@ function GuitarCardComponent({guitar}: GuitarComponentProps): JSX.Element {
           <Link className={`button button--mini ${buyBtnClass}`} onClick={handleModalCartOpenClick} to={buyBtnRedirect}>{buyBtnText}</Link>
         </div>
       </div>
-      {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
-      {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
+      {isModalVisible &&
+      <div style={{position: 'absolute'}}>
+        <div className={`modal is-active modal-for-ui-kit ${className}`}>
+          <div className="modal__wrapper">
+            <div className="modal__overlay" data-close-modal></div>
+            {isModalCartOpen && <ModalCartComponent guitar={guitar} onModalCartCloseClick={handleModalCartCloseClick} onModalCartSuccessClick={handleModalCartSuccessClick} />}
+            {isModalCartSuccessOpen && <ModalCartSuccessComponent onModalCartSuccessCloseClick={handleModalSuccessCloseClick} />}
+          </div>
+        </div>
+      </div>}
     </>
   );
 }

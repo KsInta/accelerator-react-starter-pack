@@ -6,6 +6,7 @@ import {APIRoute} from '../const';
 import {comparePrice} from '../sorting';
 import {InformationMessages} from '../const';
 import {getActualReviews} from '../utils/utils';
+import request from 'axios';
 
 const fetchGuitarsAction = (): ThunkActionResult =>
   async (dispatch, _getState, api): Promise<void> => {
@@ -24,6 +25,7 @@ const fetchGuitarsAction = (): ThunkActionResult =>
       dispatch(toggleIsLoading(true));
     } catch {
       toast.error(InformationMessages.DataLoadingError);
+      dispatch(toggleIsLoading(true));
     }
   };
 
@@ -58,8 +60,13 @@ const postCouponAction = (coupon: PostCoupon): ThunkActionResult =>
       const {data} = await api.post(APIRoute.Coupons, coupon);
       dispatch(changeDiscount(data));
       dispatch(toggleIsPostingCoupon(false));
-    } catch {
-      toast.error(InformationMessages.CouponPostError);
+    } catch (err) {
+      if (request.isAxiosError(err) && err.response) {
+        dispatch(changeDiscount(0));
+      } else {
+        toast.error(InformationMessages.CouponPostError);
+      }
+      dispatch(toggleIsPostingCoupon(false));
     }
   };
 
