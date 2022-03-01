@@ -1,13 +1,15 @@
-import {useState, ChangeEvent, FormEvent} from 'react';
+import {useState, useEffect, ChangeEvent, FormEvent} from 'react';
 import {useSelector} from 'react-redux';
 import {useDispatch} from 'react-redux';
 import {postCouponAction} from '../../store/api-actions';
+import {changeDiscount} from '../../store/actions';
 import {getDiscount, getCouponPosted} from '../../store/app-data/selectors';
 
 function CouponComponent(): JSX.Element {
   const discount = useSelector(getDiscount);
   const isCouponPosted = useSelector(getCouponPosted);
   const [coupon, setCoupon] = useState('');
+  const [discountInCart] = useState(0);
   const [isCouponValid, setIsCouponValid] = useState<boolean | null>(null);
   const dispatch = useDispatch();
 
@@ -49,6 +51,10 @@ function CouponComponent(): JSX.Element {
       setIsCouponValid(true);
     }
   };
+
+  useEffect(() => {
+    dispatch(changeDiscount(discountInCart));
+  }, [discountInCart]);
 
   return(
     <div className="cart__coupon coupon">

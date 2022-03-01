@@ -1,6 +1,5 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {Guitar} from '../../types/types';
-//import styles from './modal-cart-component.module.css';
 import {GuitarTypesTranslationForProductPage} from '../../const';
 import {changeGuitarsInCart} from '../../store/actions';
 import {getGuitarsInCart} from '../../store/app-data/selectors';

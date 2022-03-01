@@ -15,6 +15,7 @@ const store = mockStore({
   OPTION: {...MockOption},
   FILTER: {...MockFilter},
 });
+
 describe('Component: FormSearchComponent', () => {
   it('should render FormSearchComponent and change search text', () => {
     render(

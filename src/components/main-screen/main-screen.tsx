@@ -1,3 +1,4 @@
+import BreadcrumbsComponent from '../breadcrumbs-component/breadcrumbs-component';
 import FooterComponent from '../footer-component/footer-component';
 import HeaderComponent from '../header-component/header-component';
 import GuitarCardsListComponent from '../guitar-cards-list-component/guitar-cards-list-component';
@@ -12,12 +13,8 @@ function MainScreen(): JSX.Element {
       <main className="page-content">
         <div className="container">
           <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
-          <ul className="breadcrumbs page-content__breadcrumbs">
-            <li className="breadcrumbs__item"><a className="link" href="./main.html">Главная</a>
-            </li>
-            <li className="breadcrumbs__item"><a className="link">Каталог</a>
-            </li>
-          </ul>
+          <BreadcrumbsComponent inCatalog>
+          </BreadcrumbsComponent>
           <div className="catalog">
             <GuitarsFilterComponent />
             <GuitarsSortingComponent />

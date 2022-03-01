@@ -22,6 +22,8 @@ function GuitarCardCartComponent({guitar, guitarsInCart}: GuitarCardCartComponen
   const [count, setCount] = useState(guitarsInCart[id]);
   const [isModalCartOpen, setIsModalCartOpen] = useState(false);
 
+  const iSValueVisible = count > 1 ? count : '';
+
   const handleDeleteGuitarFromCartClick = () => {
     setIsModalCartOpen(true);
   };
@@ -47,6 +49,8 @@ function GuitarCardCartComponent({guitar, guitarsInCart}: GuitarCardCartComponen
     } else if (+value > MAX_GUITAR_COUNT_IN_CART) {
       setCount(MAX_GUITAR_COUNT_IN_CART);
       guitarsCartList[id] = MAX_GUITAR_COUNT_IN_CART;
+    } else if (+value === 0) {
+      setCount(0);
     }
     dispatch(changeGuitarsInCart(guitarsCartList));
     saveGuitarsInCartInLocalStorage(guitarsCartList);
@@ -91,7 +95,7 @@ function GuitarCardCartComponent({guitar, guitarsInCart}: GuitarCardCartComponen
               <use xlinkHref="#icon-minus"></use>
             </svg>
           </button>
-          <input className="quantity__input" type="number" placeholder="1" id="2-count" name="2-count" max="99" value={count} onChange={handleGuitarCountChangeInput} />
+          <input className="quantity__input" type="number" placeholder={count.toString()} id="2-count" name="2-count" max="99" value={iSValueVisible} onChange={handleGuitarCountChangeInput} />
           <button className="quantity__button" onClick={handleGuitarCountChangePlus} aria-label="Увеличить количество">
             <svg width="8" height="8" aria-hidden="true">
               <use xlinkHref="#icon-plus"></use>

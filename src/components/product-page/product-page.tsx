@@ -1,7 +1,7 @@
 import {useSelector, useDispatch} from 'react-redux';
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router';
-import {Link} from 'react-router-dom';
+import BreadcrumbsComponent from '../breadcrumbs-component/breadcrumbs-component';
 import FooterComponent from '../footer-component/footer-component';
 import HeaderComponent from '../header-component/header-component';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -17,7 +17,7 @@ import ReviewsListComponent from '../reviews-list-component/reviews-list-compone
 import {toggleIsGuitarLoading, toggleIsPosting} from '../../store/actions';
 import {fetchOfferByIdAction} from '../../store/api-actions';
 import {getGuitar, getGuitarLoaded, getCommentPosted} from '../../store/app-data/selectors';
-import {AppRoute, GuitarTypesTranslationForProductPage} from '../../const';
+import { GuitarTypesTranslationForProductPage} from '../../const';
 
 function ProductPage(): JSX.Element {
   const guitar = useSelector(getGuitar);
@@ -103,14 +103,11 @@ function ProductPage(): JSX.Element {
       <main className="page-content">
         <div className="container">
           <h1 className="page-content__title title title--bigger">{guitar.name}</h1>
-          <ul className="breadcrumbs page-content__breadcrumbs">
-            <li className="breadcrumbs__item"><Link className="link" to={AppRoute.Root}>Главная</Link>
+          <BreadcrumbsComponent inCatalog={false}>
+            <li className="breadcrumbs__item">
+              <a className="link">{guitar.name}</a>
             </li>
-            <li className="breadcrumbs__item"><Link className="link" to={AppRoute.Guitars}>Каталог</Link>
-            </li>
-            <li className="breadcrumbs__item"><a className="link">{guitar.name}</a>
-            </li>
-          </ul>
+          </BreadcrumbsComponent>
           <div className="product-container"><img className="product-container__img" src={`/${guitar.previewImg}`} width="90" height="235" alt="" />
             <div className="product-container__info-wrapper">
               <h2 className="product-container__title title title--big title--uppercase">{guitar.name}</h2>

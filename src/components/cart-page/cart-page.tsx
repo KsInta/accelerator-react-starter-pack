@@ -1,5 +1,5 @@
 import {useSelector} from 'react-redux';
-import {Link} from 'react-router-dom';
+import BreadcrumbsComponent from '../breadcrumbs-component/breadcrumbs-component';
 import CartTotalComponent from '../cart-total-component/cart-total-component';
 import CouponComponent from '../coupon-component/coupon-component';
 import FooterComponent from '../footer-component/footer-component';
@@ -7,7 +7,6 @@ import HeaderComponent from '../header-component/header-component';
 import GuitarCardCartListComponent from '../guitar-card-cart-list-component/guitar-card-cart-list-component';
 import {getGuitars, getGuitarsInCart, getDiscount} from '../../store/app-data/selectors';
 import {Guitar} from '../../types/types';
-import {AppRoute} from '../../const';
 
 function CartPage(): JSX.Element {
   const guitars = useSelector(getGuitars);
@@ -32,14 +31,11 @@ function CartPage(): JSX.Element {
       <main className="page-content">
         <div className="container">
           <h1 className="title title--bigger page-content__title">Корзина</h1>
-          <ul className="breadcrumbs page-content__breadcrumbs">
-            <li className="breadcrumbs__item"><Link className="link" to={AppRoute.Root}>Главная</Link>
+          <BreadcrumbsComponent inCatalog={false}>
+            <li className="breadcrumbs__item">
+              <a className="link">Корзина</a>
             </li>
-            <li className="breadcrumbs__item"><Link className="link" to={AppRoute.Guitars}>Каталог</Link>
-            </li>
-            <li className="breadcrumbs__item"><a className="link">Корзина</a>
-            </li>
-          </ul>
+          </BreadcrumbsComponent>
           <div className="cart">
             <GuitarCardCartListComponent guitarsInCartList={guitarsInCartList} guitarsInCart={guitarsInCart}/>
             <div className="cart__footer">
